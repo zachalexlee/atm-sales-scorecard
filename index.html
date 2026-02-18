@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weekly Sales Scorecard - Tuesday, February 17, 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #1a1a2e; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+  .header h1 { font-size: 28px; margin-bottom: 5px; }
+  .header .date { opacity: 0.8; font-size: 14px; }
+  .header .summary { display: flex; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
+  .header .stat { text-align: center; }
+  .header .stat .num { font-size: 36px; font-weight: 700; }
+  .header .stat .label { font-size: 12px; opacity: 0.7; text-transform: uppercase; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .card.full { grid-column: 1 / -1; }
+  .card h2 { font-size: 18px; margin-bottom: 16px; color: #1a1a2e; border-bottom: 2px solid #e8e8e8; padding-bottom: 8px; }
+  .card h3 { font-size: 14px; color: #666; margin: 12px 0 6px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f8f9fa; text-align: left; padding: 10px 12px; font-weight: 600; color: #555; font-size: 11px; text-transform: uppercase; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+  tr:hover td { background: #f8f9fa; }
+
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge.won { background: #d4edda; color: #155724; }
+  .badge.lost { background: #f8d7da; color: #721c24; }
+  .badge.hot { background: #fff3cd; color: #856404; }
+  .badge.stalled { background: #ffeeba; color: #856404; }
+  .badge.alert { background: #f8d7da; color: #721c24; }
+  .badge.good { background: #d4edda; color: #155724; }
+
+  .bar { height: 8px; border-radius: 4px; background: #e9ecef; overflow: hidden; margin-top: 4px; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-won { background: #28a745; }
+  .bar-lost { background: #dc3545; }
+  .bar-open { background: #007bff; }
+
+  .rep-card { border: 1px solid #e8e8e8; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+  .rep-card .name { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .rep-card .metrics { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+  .rep-card .metric { text-align: center; }
+  .rep-card .metric .val { font-size: 24px; font-weight: 700; }
+  .rep-card .metric .lbl { font-size: 10px; color: #888; text-transform: uppercase; }
+
+  .stalled-item { padding: 8px 0; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+  .stalled-item .deal-name { font-weight: 500; font-size: 13px; max-width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .stalled-item .deal-meta { font-size: 12px; color: #888; text-align: right; }
+
+  a.deal-link, td a { color: #007bff; text-decoration: none; }
+  a.deal-link:hover, td a:hover { text-decoration: underline; color: #0056b3; }
+
+  .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>📊 Weekly Sales Scorecard</h1>
+  <div class="date">Tuesday, February 17, 2026 | Rolling 60 Days | Cannabis Cashier/Forza + Non-MJ Pipelines</div>
+  <div class="summary">
+    <div class="stat"><div class="num">152</div><div class="label">Deals (60 Days)</div></div>
+    <div class="stat"><div class="num">14</div><div class="label">New This Week</div></div>
+    <div class="stat"><div class="num">1</div><div class="label">Won (60 Days)</div></div>
+    <div class="stat"><div class="num">24</div><div class="label">Lost (60 Days)</div></div>
+    <div class="stat"><div class="num">127</div><div class="label">Open Deals</div></div>
+    <div class="stat"><div class="num">8</div><div class="label">🔥 Hot Leads</div></div>
+  </div>
+</div>
+
+<div class="grid">
+
+<!-- REP SCORECARDS -->
+<div class="card full">
+  <h2>👥 Rep Performance Scorecards (Last 60 Days)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Rep</th>
+        <th>Total Deals</th>
+        <th>New This Week</th>
+        <th>Open</th>
+        <th>Won</th>
+        <th>Lost</th>
+        <th>Win Rate</th>
+        <th>🔥 Hot</th>
+        <th>⚠️ Stalled (14d+)</th>
+        <th>Pipeline Health</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Lily Benedict</strong></td>
+        <td>65</td>
+        <td>7</td>
+        <td>53</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">12</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td><span class="badge hot">5</span></td>
+        <td><span class="badge stalled">1 (2%)</span></td>
+        <td><span class="badge good">Healthy</span></td>
+      </tr>
+      <tr>
+        <td><strong>Jessicalynne Leonard</strong></td>
+        <td>38</td>
+        <td>4</td>
+        <td>32</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">6</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td><span class="badge hot">2</span></td>
+        <td><span class="badge stalled">3 (9%)</span></td>
+        <td><span class="badge good">Healthy</span></td>
+      </tr>
+      <tr>
+        <td><strong>Alison Jeromchek</strong></td>
+        <td>38</td>
+        <td>2</td>
+        <td>33</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">5</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td>0</td>
+        <td><span class="badge stalled">2 (6%)</span></td>
+        <td><span class="badge good">Healthy</span></td>
+      </tr>
+      <tr>
+        <td><strong>Josh Johnson</strong></td>
+        <td>4</td>
+        <td>1</td>
+        <td>4</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">0</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td>0</td>
+        <td><span class="badge good">0</span></td>
+        <td><span class="badge good">Healthy</span></td>
+      </tr>
+      <tr>
+        <td><strong>Michelle Stine</strong></td>
+        <td>4</td>
+        <td>0</td>
+        <td>3</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">1</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td><span class="badge hot">1</span></td>
+        <td><span class="badge stalled">1 (33%)</span></td>
+        <td><span class="badge stalled">Warning</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PIPELINE BREAKDOWN -->
+<div class="card">
+  <h2>📋 Pipeline Breakdown (Last 60 Days)</h2>
+  <table>
+    <thead><tr><th>Pipeline</th><th>Total</th><th>Open</th><th>Won</th><th>Lost</th></tr></thead>
+    <tbody>
+      <tr><td>Cannabis Cashier/ Forza Payments - 2026 Leads</td><td>76</td><td>65</td><td><span class="badge won">0</span></td><td><span class="badge lost">11</span></td></tr>
+      <tr><td>Non-MJ - 2026 Leads</td><td>76</td><td>62</td><td><span class="badge won">1</span></td><td><span class="badge lost">13</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- HOT LEADS -->
+<div class="card">
+  <h2>🔥 Hot Leads (8 total)</h2>
+  <table>
+    <thead><tr><th>Deal</th><th>Stage</th><th>Owner</th><th>Last Activity</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Weed Land Inc. (Bronx, NY) – MJ"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/258136285892" target="_blank" style="color:#007bff;text-decoration:none">Weed Land Inc. (Bronx, NY) – MJ</a></td>
+        <td><span class="badge hot">Sent Worksheet</span></td>
+        <td>Lily Benedict</td>
+        <td>0d ago</td>
+      </tr>
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="THE BRONCO (Republic, WA) call in April"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/255395691197" target="_blank" style="color:#007bff;text-decoration:none">THE BRONCO (Republic, WA) call in April</a></td>
+        <td><span class="badge hot">Very Interested</span></td>
+        <td>Lily Benedict</td>
+        <td>1d ago</td>
+      </tr>
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="The High End DBA Good Life Collective (Batavia, NY, / MJ) - Winter 2025 ✔️#"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/28277399914" target="_blank" style="color:#007bff;text-decoration:none">The High End DBA Good Life Collective (Batavia, NY, / MJ) - Winter 2025 ✔️#</a></td>
+        <td><span class="badge hot">Very Interested (You Got This!)</span></td>
+        <td>Michelle Stine</td>
+        <td>1d ago</td>
+      </tr>
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="DMV Exclusives LLC DBA Coastal Cure Cannabis Dispensary (Delmar, MD / MJ) ✔️# - OPENING SOON SPRING 2026"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/18761654073" target="_blank" style="color:#007bff;text-decoration:none">DMV Exclusives LLC DBA Coastal Cure Cannabis Dispensary (Delmar, MD / MJ) ✔️# - OPENING SOON SPRING 2026</a></td>
+        <td><span class="badge hot">Very Interested (You Got This!)</span></td>
+        <td>Jessicalynne Leonard</td>
+        <td>6d ago</td>
+      </tr>
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Green Land Retail LLC (Staten Island, NY) - MJ CALL FEB 11th"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/245393696450" target="_blank" style="color:#007bff;text-decoration:none">Green Land Retail LLC (Staten Island, NY) - MJ CALL FEB 11th</a></td>
+        <td><span class="badge hot">Very Interested (You Got This!)</span></td>
+        <td>Lily Benedict</td>
+        <td>6d ago</td>
+      </tr>
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Brightway Services, Inc (Hancock, NY) – MJ"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/264971326157" target="_blank" style="color:#007bff;text-decoration:none">Brightway Services, Inc (Hancock, NY) – MJ</a></td>
+        <td><span class="badge hot">Very Interested (You Got This!)</span></td>
+        <td>Lily Benedict</td>
+        <td>12d ago</td>
+      </tr>
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="RIVERWALK PARK INN (Chelan, WA)"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/255195565763" target="_blank" style="color:#007bff;text-decoration:none">RIVERWALK PARK INN (Chelan, WA)</a></td>
+        <td><span class="badge hot">Very Interested</span></td>
+        <td>Lily Benedict</td>
+        <td>19d ago</td>
+      </tr>
+      <tr>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Lobster Dogs - NONmj ✔️#"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/253070207695" target="_blank" style="color:#007bff;text-decoration:none">Lobster Dogs - NONmj ✔️#</a></td>
+        <td><span class="badge hot">Very Interested: +3 Months </span></td>
+        <td>Jessicalynne Leonard</td>
+        <td>24d ago</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+
+<!-- TOP STALLED DEALS -->
+<div class="card full">
+  <h2>⚠️ Top 30 Stalled Deals (14+ days no activity, not closed)</h2>
+  <table>
+    <thead><tr><th>Deal Name</th><th>Pipeline</th><th>Stage</th><th>Owner</th><th>Days Stalled</th><th>Created</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Green on Top, LLC (Syracuse, NY) - MJ ✔️#"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/244834519799" target="_blank" style="color:#007bff;text-decoration:none">Green on Top, LLC (Syracuse, NY) - MJ ✔️#</a></td>
+        <td style="font-size:11px">Cannabis Cashier/ Forza Payments - 2026 Leads</td>
+        <td>Postponed</td>
+        <td>Jessicalynne Leonard</td>
+        <td><span class="badge stalled">33 days</span></td>
+        <td>2025-12-20</td>
+      </tr>
+      <tr>
+        <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Rocko's Modern Taphouse (San Diego, CA) - NONmj "><a href="https://app-na2.hubspot.com/contacts/8287576/deal/259782257348" target="_blank" style="color:#007bff;text-decoration:none">Rocko's Modern Taphouse (San Diego, CA) - NONmj </a></td>
+        <td style="font-size:11px">Non-MJ - 2026 Leads</td>
+        <td>Find better contact</td>
+        <td>Jessicalynne Leonard</td>
+        <td><span class="badge hot">28 days</span></td>
+        <td>2026-01-12</td>
+      </tr>
+      <tr>
+        <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Rolling Hills Wellness LLC d/b/a Fuel 518 (Catskill, NY / MJ) ✔️#"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/28801599315" target="_blank" style="color:#007bff;text-decoration:none">Rolling Hills Wellness LLC d/b/a Fuel 518 (Catskill, NY / MJ) ✔️#</a></td>
+        <td style="font-size:11px">Cannabis Cashier/ Forza Payments - 2026 Leads</td>
+        <td>Left VM / Sent Email</td>
+        <td>Alison Jeromchek</td>
+        <td><span class="badge hot">24 days</span></td>
+        <td>2025-12-26</td>
+      </tr>
+      <tr>
+        <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Tony's Quick Shop"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/260429411017" target="_blank" style="color:#007bff;text-decoration:none">Tony's Quick Shop</a></td>
+        <td style="font-size:11px">Non-MJ - 2026 Leads</td>
+        <td>Lead In</td>
+        <td>Zachery Lee</td>
+        <td><span class="badge hot">24 days</span></td>
+        <td>2026-01-13</td>
+      </tr>
+      <tr>
+        <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Lobster Dogs - NONmj ✔️#"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/253070207695" target="_blank" style="color:#007bff;text-decoration:none">Lobster Dogs - NONmj ✔️#</a></td>
+        <td style="font-size:11px">Non-MJ - 2026 Leads</td>
+        <td>Very Interested: +3 Months </td>
+        <td>Jessicalynne Leonard</td>
+        <td><span class="badge hot">24 days</span></td>
+        <td>2026-01-05</td>
+      </tr>
+      <tr>
+        <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="DankHouse Brewing Co. - Opening Early 2026! (Columbus, OH) - NONmj"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/272714273476" target="_blank" style="color:#007bff;text-decoration:none">DankHouse Brewing Co. - Opening Early 2026! (Columbus, OH) - NONmj</a></td>
+        <td style="font-size:11px">Non-MJ - 2026 Leads</td>
+        <td>Lead In</td>
+        <td>Alison Jeromchek</td>
+        <td><span class="badge hot">22 days</span></td>
+        <td>2026-01-23</td>
+      </tr>
+      <tr>
+        <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Oasis Cannabis LLC (East Amherst, NY) - MJ ✔️#"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/247929666241" target="_blank" style="color:#007bff;text-decoration:none">Oasis Cannabis LLC (East Amherst, NY) - MJ ✔️#</a></td>
+        <td style="font-size:11px">Cannabis Cashier/ Forza Payments - 2026 Leads</td>
+        <td>Left VM / Sent Email</td>
+        <td>Michelle Stine</td>
+        <td><span class="badge hot">21 days</span></td>
+        <td>2025-12-26</td>
+      </tr>
+      <tr>
+        <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="RIVERWALK PARK INN (Chelan, WA)"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/255195565763" target="_blank" style="color:#007bff;text-decoration:none">RIVERWALK PARK INN (Chelan, WA)</a></td>
+        <td style="font-size:11px">Non-MJ - 2026 Leads</td>
+        <td>Very Interested</td>
+        <td>Lily Benedict</td>
+        <td><span class="badge hot">19 days</span></td>
+        <td>2026-01-06</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- LIFETIME STATS -->
+<div class="card full">
+  <h2>📈 Rep Breakdown (152 Deals in Last 60 Days)</h2>
+  <table>
+    <thead>
+      <tr><th>Rep</th><th>Total</th><th>Open</th><th>Won</th><th>Lost</th><th>Win Rate</th><th>Won/Lost Ratio</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Lily Benedict</strong></td>
+        <td>65</td>
+        <td>53</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">12</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td>
+          <div class="bar" style="width:200px">
+            <div class="bar-fill bar-won" style="width:0%;display:inline-block"></div><div class="bar-fill bar-lost" style="width:18%;display:inline-block"></div><div class="bar-fill bar-open" style="width:82%;display:inline-block"></div>
+          </div>
+          <span style="font-size:10px;color:#888">0% won / 18% lost / 82% open</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Jessicalynne Leonard</strong></td>
+        <td>38</td>
+        <td>32</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">6</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td>
+          <div class="bar" style="width:200px">
+            <div class="bar-fill bar-won" style="width:0%;display:inline-block"></div><div class="bar-fill bar-lost" style="width:16%;display:inline-block"></div><div class="bar-fill bar-open" style="width:84%;display:inline-block"></div>
+          </div>
+          <span style="font-size:10px;color:#888">0% won / 16% lost / 84% open</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Alison Jeromchek</strong></td>
+        <td>38</td>
+        <td>33</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">5</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td>
+          <div class="bar" style="width:200px">
+            <div class="bar-fill bar-won" style="width:0%;display:inline-block"></div><div class="bar-fill bar-lost" style="width:13%;display:inline-block"></div><div class="bar-fill bar-open" style="width:87%;display:inline-block"></div>
+          </div>
+          <span style="font-size:10px;color:#888">0% won / 13% lost / 87% open</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Josh Johnson</strong></td>
+        <td>4</td>
+        <td>4</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">0</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td>
+          <div class="bar" style="width:200px">
+            <div class="bar-fill bar-won" style="width:0%;display:inline-block"></div><div class="bar-fill bar-lost" style="width:0%;display:inline-block"></div><div class="bar-fill bar-open" style="width:100%;display:inline-block"></div>
+          </div>
+          <span style="font-size:10px;color:#888">0% won / 0% lost / 100% open</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Michelle Stine</strong></td>
+        <td>4</td>
+        <td>3</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">1</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td>
+          <div class="bar" style="width:200px">
+            <div class="bar-fill bar-won" style="width:0%;display:inline-block"></div><div class="bar-fill bar-lost" style="width:25%;display:inline-block"></div><div class="bar-fill bar-open" style="width:75%;display:inline-block"></div>
+          </div>
+          <span style="font-size:10px;color:#888">0% won / 25% lost / 75% open</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Zachery Lee</strong></td>
+        <td>2</td>
+        <td>2</td>
+        <td><span class="badge won">0</span></td>
+        <td><span class="badge lost">0</span></td>
+        <td><span class="badge lost">0%</span></td>
+        <td>
+          <div class="bar" style="width:200px">
+            <div class="bar-fill bar-won" style="width:0%;display:inline-block"></div><div class="bar-fill bar-lost" style="width:0%;display:inline-block"></div><div class="bar-fill bar-open" style="width:100%;display:inline-block"></div>
+          </div>
+          <span style="font-size:10px;color:#888">0% won / 0% lost / 100% open</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>AJ Stine</strong></td>
+        <td>1</td>
+        <td>0</td>
+        <td><span class="badge won">1</span></td>
+        <td><span class="badge lost">0</span></td>
+        <td><span class="badge won">100%</span></td>
+        <td>
+          <div class="bar" style="width:200px">
+            <div class="bar-fill bar-won" style="width:100%;display:inline-block"></div><div class="bar-fill bar-lost" style="width:0%;display:inline-block"></div><div class="bar-fill bar-open" style="width:0%;display:inline-block"></div>
+          </div>
+          <span style="font-size:10px;color:#888">100% won / 0% lost / 0% open</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<div class="footer">
+  Generated 2026-02-18T02:16:41.367Z | Data from HubSpot via API<br>
+  Run <code>node weekly-scorecard.js</code> anytime to regenerate
+</div>
+
+</div>
+</body>
+</html>
