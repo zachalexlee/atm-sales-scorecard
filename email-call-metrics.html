@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email &amp; Call Metrics | ATM Sales</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: #1e293b;
+      font-size: 14px;
+      transition: all 0.2s;
+      border: 1px solid #334155;
+    }
+    .nav a:hover { background: #334155; color: #fff; }
+    .nav a.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+
+    /* Header */
+    h1 { font-size: 28px; margin-bottom: 4px; color: #fff; }
+    .subtitle { color: #94a3b8; margin-bottom: 24px; font-size: 14px; }
+
+    /* Cards */
+    .card {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #334155;
+      margin-bottom: 16px;
+    }
+    .card h2 {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    /* Summary grid */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .summary-card {
+      background: #1e293b;
+      border-radius: 10px;
+      padding: 18px 14px;
+      border: 1px solid #334155;
+      text-align: center;
+    }
+    .summary-card .big-num {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .summary-card .label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Grid layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .data-table th {
+      text-align: left;
+      font-size: 11px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 10px 8px;
+      border-bottom: 2px solid #334155;
+      white-space: nowrap;
+    }
+    .data-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #1e293b;
+      color: #cbd5e1;
+    }
+    .data-table tr:hover { background: rgba(59,130,246,0.05); }
+    .data-table .highlight-row { background: rgba(34,197,94,0.08); }
+
+    /* Bar table */
+    .bar-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .bar-table td {
+      padding: 8px 6px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    /* Section headers */
+    .section-header {
+      font-size: 20px;
+      color: #fff;
+      margin: 32px 0 16px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #334155;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      color: #475569;
+      font-size: 12px;
+      margin-top: 40px;
+      padding: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <a href="index.html">📊 Scorecard</a>
+    <a href="leaderboard.html">🏆 Leaderboard</a>
+    <a href="hot-leads.html">🔥 Hot Leads</a>
+    <a href="activity-outcomes.html">📈 Activity Correlation</a>
+    <a href="email-call-metrics.html" class="active">📧 Email/Call Metrics</a>
+  </div>
+
+  <!-- Title -->
+  <h1>📧 Email &amp; Call Effectiveness Metrics</h1>
+  <p class="subtitle">Last 180 days (Aug 22, 2025 &ndash; Feb 18, 2026) | 4,358 outbound emails, 3,745 calls | Generated Wednesday, February 18, 2026 at 09:27 PM</p>
+
+  <!-- Top Summary Cards -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="big-num" style="color:#3b82f6">4,358</div>
+      <div class="label">Emails Sent</div>
+    </div>
+    <div class="summary-card">
+      <div class="big-num" style="color:#22c55e">53.2%</div>
+      <div class="label">Email Open Rate</div>
+    </div>
+    <div class="summary-card">
+      <div class="big-num" style="color:#22c55e">18.3%</div>
+      <div class="label">Email Reply Rate</div>
+    </div>
+    <div class="summary-card">
+      <div class="big-num" style="color:#3b82f6">3,745</div>
+      <div class="label">Total Calls</div>
+    </div>
+    <div class="summary-card">
+      <div class="big-num" style="color:#f59e0b">42s</div>
+      <div class="label">Avg Call Duration</div>
+    </div>
+    <div class="summary-card">
+      <div class="big-num" style="color:#22c55e">31.4%</div>
+      <div class="label">Connect Rate</div>
+    </div>
+  </div>
+
+  <!-- ===== EMAIL SECTION ===== -->
+  <div class="section-header">📧 Email Analytics</div>
+
+  <!-- Email Performance by Rep -->
+  <div class="card">
+    <h2>📧 Email Performance by Rep</h2>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <tr>
+          <th>Rep</th>
+          <th>Emails Sent</th>
+          <th>Open Rate</th>
+          <th>Reply Rate</th>
+          <th>Click Rate</th>
+        </tr>
+        <tr>
+                  <td><strong>Jessicalynne Leonard</strong></td>
+                  <td>927</td>
+                  <td style="color:#f59e0b;font-weight:700">48.2%</td>
+                  <td style="color:#22c55e;font-weight:700">10.0%</td>
+                  <td style="color:#ef4444;font-weight:700">1.1%</td>
+                </tr>
+<tr>
+                  <td><strong>Alison Jeromchek</strong></td>
+                  <td>841</td>
+                  <td style="color:#f59e0b;font-weight:700">42.1%</td>
+                  <td style="color:#f59e0b;font-weight:700">7.1%</td>
+                  <td style="color:#ef4444;font-weight:700">1.0%</td>
+                </tr>
+<tr>
+                  <td><strong>Lily Benedict</strong></td>
+                  <td>767</td>
+                  <td style="color:#22c55e;font-weight:700">50.1%</td>
+                  <td style="color:#22c55e;font-weight:700">14.6%</td>
+                  <td style="color:#f59e0b;font-weight:700">2.0%</td>
+                </tr>
+<tr>
+                  <td><strong>Josh Johnson</strong></td>
+                  <td>692</td>
+                  <td style="color:#22c55e;font-weight:700">73.4%</td>
+                  <td style="color:#22c55e;font-weight:700">32.2%</td>
+                  <td style="color:#f59e0b;font-weight:700">2.7%</td>
+                </tr>
+<tr>
+                  <td><strong>Michelle Stine</strong></td>
+                  <td>676</td>
+                  <td style="color:#22c55e;font-weight:700">61.1%</td>
+                  <td style="color:#22c55e;font-weight:700">25.3%</td>
+                  <td style="color:#f59e0b;font-weight:700">2.4%</td>
+                </tr>
+<tr>
+                  <td><strong>Zachery Lee</strong></td>
+                  <td>226</td>
+                  <td style="color:#22c55e;font-weight:700">52.7%</td>
+                  <td style="color:#22c55e;font-weight:700">36.3%</td>
+                  <td style="color:#f59e0b;font-weight:700">3.1%</td>
+                </tr>
+<tr>
+                  <td><strong>Mike Lee</strong></td>
+                  <td>195</td>
+                  <td style="color:#f59e0b;font-weight:700">45.1%</td>
+                  <td style="color:#22c55e;font-weight:700">26.7%</td>
+                  <td style="color:#22c55e;font-weight:700">6.2%</td>
+                </tr>
+<tr>
+                  <td><strong>78973912</strong></td>
+                  <td>19</td>
+                  <td style="color:#f59e0b;font-weight:700">26.3%</td>
+                  <td style="color:#22c55e;font-weight:700">26.3%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                </tr>
+<tr>
+                  <td><strong>AJ Stine</strong></td>
+                  <td>11</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Subject patterns + top subjects side by side -->
+  <div class="grid-2">
+    <div class="card">
+      <h2>📧 Best Subject Line Patterns</h2>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <tr>
+            <th>Pattern</th>
+            <th>Emails</th>
+            <th>Open Rate</th>
+            <th>Reply Rate</th>
+          </tr>
+          <tr>
+                  <td><strong>Contract/Agreement</strong></td>
+                  <td>52</td>
+                  <td style="color:#22c55e;font-weight:700">69.2%</td>
+                  <td style="color:#22c55e;font-weight:700">42.3%</td>
+                </tr>
+<tr>
+                  <td><strong>Re: (Reply Thread)</strong></td>
+                  <td>1453</td>
+                  <td style="color:#22c55e;font-weight:700">61.9%</td>
+                  <td style="color:#22c55e;font-weight:700">29.7%</td>
+                </tr>
+<tr>
+                  <td><strong>Pricing/Quote</strong></td>
+                  <td>45</td>
+                  <td style="color:#22c55e;font-weight:700">62.2%</td>
+                  <td style="color:#22c55e;font-weight:700">28.9%</td>
+                </tr>
+<tr>
+                  <td><strong>Follow Up</strong></td>
+                  <td>206</td>
+                  <td style="color:#22c55e;font-weight:700">56.3%</td>
+                  <td style="color:#22c55e;font-weight:700">19.4%</td>
+                </tr>
+<tr>
+                  <td><strong>Cannabis/MJ</strong></td>
+                  <td>1390</td>
+                  <td style="color:#22c55e;font-weight:700">56.6%</td>
+                  <td style="color:#22c55e;font-weight:700">16.9%</td>
+                </tr>
+<tr>
+                  <td><strong>ATM</strong></td>
+                  <td>2652</td>
+                  <td style="color:#f59e0b;font-weight:700">46.6%</td>
+                  <td style="color:#22c55e;font-weight:700">12.6%</td>
+                </tr>
+<tr>
+                  <td><strong>Cashless/Payment</strong></td>
+                  <td>595</td>
+                  <td style="color:#f59e0b;font-weight:700">42.9%</td>
+                  <td style="color:#f59e0b;font-weight:700">8.4%</td>
+                </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📧 Top 10 Subject Lines</h2>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <tr>
+            <th>Subject</th>
+            <th>Count</th>
+            <th>Open Rate</th>
+            <th>Reply Rate</th>
+          </tr>
+          <tr>
+                  <td title="ATMs, Cash Loading & Cashless Payment Options">ATMs, Cash Loading & Cashless Payment Options</td>
+                  <td>151</td>
+                  <td style="color:#f59e0b;font-weight:700">33.1%</td>
+                  <td style="color:#ef4444;font-weight:700">1.3%</td>
+                </tr>
+<tr>
+                  <td title="ATM Program Overview">ATM Program Overview</td>
+                  <td>127</td>
+                  <td style="color:#f59e0b;font-weight:700">40.2%</td>
+                  <td style="color:#ef4444;font-weight:700">4.7%</td>
+                </tr>
+<tr>
+                  <td title="Custom Wrapped ATMs, Cash Loading & more - Cannabis Cashier">Custom Wrapped ATMs, Cash Loading & more - Cannabis Cashier</td>
+                  <td>79</td>
+                  <td style="color:#f59e0b;font-weight:700">35.4%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                </tr>
+<tr>
+                  <td title="Reliable ATM & Debit Service Package">Reliable ATM & Debit Service Package</td>
+                  <td>70</td>
+                  <td style="color:#f59e0b;font-weight:700">30.0%</td>
+                  <td style="color:#ef4444;font-weight:700">1.4%</td>
+                </tr>
+<tr>
+                  <td title="Custom Wrapped ATMs & Cash Loading - Cannabis Cashier">Custom Wrapped ATMs & Cash Loading - Cannabis Cashier</td>
+                  <td>48</td>
+                  <td style="color:#f59e0b;font-weight:700">29.2%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                </tr>
+<tr>
+                  <td title="🎄🎅 Dispensary Exclusive ATM Deals This Holiday Season 🎄🎅">🎄🎅 Dispensary Exclusive ATM Deals This Holiday Season 🎄🎅</td>
+                  <td>48</td>
+                  <td style="color:#f59e0b;font-weight:700">31.3%</td>
+                  <td style="color:#ef4444;font-weight:700">2.1%</td>
+                </tr>
+<tr>
+                  <td title="Forza Payments – Considering an ATM, consider us! Make money/transaction!">Forza Payments – Considering an ATM, consider us! Make mo...</td>
+                  <td>48</td>
+                  <td style="color:#f59e0b;font-weight:700">31.3%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                </tr>
+<tr>
+                  <td title="Considering an ATM, consider us! Make profit! Forza">Considering an ATM, consider us! Make profit! Forza</td>
+                  <td>45</td>
+                  <td style="color:#ef4444;font-weight:700">15.6%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                </tr>
+<tr>
+                  <td title="Cannabis Cashier - $500 off ATMs, Free atm Wraps, No Fees for 6 months & more!">Cannabis Cashier - $500 off ATMs, Free atm Wraps, No Fees...</td>
+                  <td>44</td>
+                  <td style="color:#f59e0b;font-weight:700">47.7%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                </tr>
+<tr>
+                  <td title="Custom Wrapped ATMs, Cash Loading & Cashless ATMs - Cannabis Cashier">Custom Wrapped ATMs, Cash Loading & Cashless ATMs - Canna...</td>
+                  <td>23</td>
+                  <td style="color:#ef4444;font-weight:700">21.7%</td>
+                  <td style="color:#ef4444;font-weight:700">0.0%</td>
+                </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Best time to email -->
+  <div class="grid-2">
+    <div class="card">
+      <h2>📧 Best Day to Email — ⭐ Wednesday</h2>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <tr>
+            <th>Day</th>
+            <th>Emails</th>
+            <th>Open Rate</th>
+            <th>Reply Rate</th>
+          </tr>
+          <tr><td>Monday</td><td>0</td><td>-</td><td>-</td></tr>
+<tr><td>Tuesday</td><td>0</td><td>-</td><td>-</td></tr>
+<tr>
+                <td>Wednesday</td>
+                <td>4358</td>
+                <td style="color:#22c55e;font-weight:700">53.2%</td>
+                <td style="color:#22c55e;font-weight:700">18.3%</td>
+              </tr>
+<tr><td>Thursday</td><td>0</td><td>-</td><td>-</td></tr>
+<tr><td>Friday</td><td>0</td><td>-</td><td>-</td></tr>
+<tr><td>Saturday</td><td>0</td><td>-</td><td>-</td></tr>
+<tr><td>Sunday</td><td>0</td><td>-</td><td>-</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📧 Best Time of Day to Email</h2>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <tr>
+            <th>Time Block</th>
+            <th>Emails</th>
+            <th>Open Rate</th>
+            <th>Reply Rate</th>
+          </tr>
+          <tr><td>Morning (6-11)</td><td>0</td><td>-</td><td>-</td></tr>
+<tr>
+                <td>Afternoon (12-17)</td>
+                <td>4358</td>
+                <td style="color:#22c55e;font-weight:700">53.2%</td>
+                <td style="color:#22c55e;font-weight:700">18.3%</td>
+              </tr>
+<tr><td>Evening (18-23)</td><td>0</td><td>-</td><td>-</td></tr>
+<tr><td>Night (0-5)</td><td>0</td><td>-</td><td>-</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email source breakdown -->
+  <div class="grid-2">
+    <div class="card">
+      <h2>📧 Emails by Source</h2>
+      <table class="data-table">
+        <tr><th>Source</th><th>Count</th></tr>
+        <tr><td>HubSpot CRM</td><td style="font-weight:700">2,226</td></tr>
+<tr><td>BCC Logged</td><td style="font-weight:700">1,530</td></tr>
+<tr><td>Forwarded/Synced</td><td style="font-weight:700">591</td></tr>
+<tr><td>Other</td><td style="font-weight:700">11</td></tr>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:#64748b">
+        Inbound emails received: <strong style="color:#e2e8f0">666</strong>
+        &nbsp;|&nbsp; Avg opens per opened email: <strong style="color:#e2e8f0">3.6</strong>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+  <!-- ===== CALL SECTION ===== -->
+  <div class="section-header">📞 Call Analytics</div>
+
+  <!-- Call Performance by Rep -->
+  <div class="card">
+    <h2>📞 Call Performance by Rep</h2>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <tr>
+          <th>Rep</th>
+          <th>Total Calls</th>
+          <th>Outbound</th>
+          <th>Avg Duration</th>
+          <th>Total Talk Time</th>
+        </tr>
+        <tr>
+                  <td><strong>Jessicalynne Leonard</strong></td>
+                  <td>2241</td>
+                  <td>2219</td>
+                  <td>18s</td>
+                  <td>7h 42m</td>
+                </tr>
+<tr>
+                  <td><strong>Alison Jeromchek</strong></td>
+                  <td>885</td>
+                  <td>865</td>
+                  <td>46s</td>
+                  <td>8h 27m</td>
+                </tr>
+<tr>
+                  <td><strong>Josh Johnson</strong></td>
+                  <td>175</td>
+                  <td>163</td>
+                  <td>186s</td>
+                  <td>7h 51m</td>
+                </tr>
+<tr>
+                  <td><strong>Zachery Lee</strong></td>
+                  <td>167</td>
+                  <td>7</td>
+                  <td>185s</td>
+                  <td>3h 13m</td>
+                </tr>
+<tr>
+                  <td><strong>Lily Benedict</strong></td>
+                  <td>135</td>
+                  <td>135</td>
+                  <td>51s</td>
+                  <td>1h 23m</td>
+                </tr>
+<tr>
+                  <td><strong>Michelle Stine</strong></td>
+                  <td>131</td>
+                  <td>131</td>
+                  <td>51s</td>
+                  <td>1h 19m</td>
+                </tr>
+<tr>
+                  <td><strong>Unknown</strong></td>
+                  <td>8</td>
+                  <td>0</td>
+                  <td>0s</td>
+                  <td>0m</td>
+                </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Duration distribution + Outcomes -->
+  <div class="grid-2">
+    <div class="card">
+      <h2>📞 Call Duration Distribution</h2>
+      <table class="bar-table">
+        <tr>
+                <td style="width:180px;color:#cbd5e1;font-weight:500">0-15s (No Answer)</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">2405</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">64.2%</td>
+                <td>
+                  <div style="background:#ef4444;height:22px;border-radius:4px;width:100%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+<tr>
+                <td style="width:180px;color:#cbd5e1;font-weight:500">16-60s (Quick)</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">1029</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">27.5%</td>
+                <td>
+                  <div style="background:#f97316;height:22px;border-radius:4px;width:43%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+<tr>
+                <td style="width:180px;color:#cbd5e1;font-weight:500">1-3min (Short)</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">236</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">6.3%</td>
+                <td>
+                  <div style="background:#f59e0b;height:22px;border-radius:4px;width:10%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+<tr>
+                <td style="width:180px;color:#cbd5e1;font-weight:500">3-10min (Good Convo)</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">56</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">1.5%</td>
+                <td>
+                  <div style="background:#22c55e;height:22px;border-radius:4px;width:2%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+<tr>
+                <td style="width:180px;color:#cbd5e1;font-weight:500">10+min (Deep Convo)</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">19</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">0.5%</td>
+                <td>
+                  <div style="background:#3b82f6;height:22px;border-radius:4px;width:1%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:#64748b">
+        Total talk time: <strong style="color:#e2e8f0">29h 57m</strong>
+        &nbsp;|&nbsp; Outbound: <strong style="color:#e2e8f0">3,520</strong>
+        &nbsp;|&nbsp; Inbound: <strong style="color:#e2e8f0">123</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📞 Call Outcomes (from Notes)</h2>
+      <table class="bar-table">
+        <tr>
+                <td style="width:160px;color:#cbd5e1;font-weight:500">Left Voicemail</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">1435</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">38.3%</td>
+                <td>
+                  <div style="background:#f59e0b;height:22px;border-radius:4px;width:100%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+<tr>
+                <td style="width:160px;color:#cbd5e1;font-weight:500">No Answer</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">53</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">1.4%</td>
+                <td>
+                  <div style="background:#ef4444;height:22px;border-radius:4px;width:4%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+<tr>
+                <td style="width:160px;color:#cbd5e1;font-weight:500">Connected</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">1146</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">30.6%</td>
+                <td>
+                  <div style="background:#3b82f6;height:22px;border-radius:4px;width:80%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+<tr>
+                <td style="width:160px;color:#cbd5e1;font-weight:500">Set Appointment</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">30</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">0.8%</td>
+                <td>
+                  <div style="background:#22c55e;height:22px;border-radius:4px;width:2%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+<tr>
+                <td style="width:160px;color:#cbd5e1;font-weight:500">No Notes</td>
+                <td style="width:60px;text-align:right;color:#e2e8f0;font-weight:700">1081</td>
+                <td style="width:60px;text-align:right;color:#94a3b8">28.9%</td>
+                <td>
+                  <div style="background:#64748b;height:22px;border-radius:4px;width:75%;min-width:4px;transition:width 0.3s"></div>
+                </td>
+              </tr>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:#64748b">
+        Outcomes parsed from call body/notes text. Calls with no notes are marked "No Notes".
+      </div>
+    </div>
+  </div>
+
+  <!-- Best time to call -->
+  <div class="grid-2">
+    <div class="card">
+      <h2>📞 Best Day to Call — ⭐ Wednesday</h2>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <tr>
+            <th>Day</th>
+            <th>Calls</th>
+            <th>Avg Duration</th>
+          </tr>
+          <tr><td>Monday</td><td>0</td><td>-</td></tr>
+<tr><td>Tuesday</td><td>0</td><td>-</td></tr>
+<tr>
+                <td>Wednesday</td>
+                <td>3745</td>
+                <td>42s</td>
+              </tr>
+<tr><td>Thursday</td><td>0</td><td>-</td></tr>
+<tr><td>Friday</td><td>0</td><td>-</td></tr>
+<tr><td>Saturday</td><td>0</td><td>-</td></tr>
+<tr><td>Sunday</td><td>0</td><td>-</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📞 Call Status Breakdown</h2>
+      <table class="data-table">
+        <tr><th>Status</th><th>Count</th></tr>
+        <tr><td>COMPLETED</td><td style="font-weight:700">3011</td></tr>
+<tr><td>NO_ANSWER</td><td style="font-weight:700">338</td></tr>
+<tr><td>BUSY</td><td style="font-weight:700">187</td></tr>
+<tr><td>FAILED</td><td style="font-weight:700">108</td></tr>
+<tr><td>MISSED</td><td style="font-weight:700">87</td></tr>
+<tr><td>CONNECTING</td><td style="font-weight:700">8</td></tr>
+<tr><td>CANCELED</td><td style="font-weight:700">3</td></tr>
+<tr><td>RINGING</td><td style="font-weight:700">2</td></tr>
+<tr><td>QUEUED</td><td style="font-weight:700">1</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    Email &amp; Call Effectiveness Metrics | ATM Sales Scorecard | Portal 8287576 | Data from <a href="https://app-na2.hubspot.com" style="color:#3b82f6">HubSpot</a>
+  </div>
+
+</body>
+</html>
