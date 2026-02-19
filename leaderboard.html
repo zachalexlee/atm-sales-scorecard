@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Leaderboard - Q1 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0a0a1a;
+    color: #e0e0e0;
+    min-height: 100vh;
+  }
+
+  .page { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+
+  /* ---- HEADER ---- */
+  .header {
+    text-align: center;
+    padding: 50px 20px 40px;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    border-radius: 20px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 60%);
+    animation: shimmer 8s ease-in-out infinite;
+  }
+  @keyframes shimmer { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } }
+  .header h1 { font-size: 42px; font-weight: 900; letter-spacing: -1px; position: relative; }
+  .header h1 .trophy { font-size: 48px; display: block; margin-bottom: 8px; }
+  .header .subtitle { font-size: 15px; color: rgba(255,255,255,0.5); margin-top: 8px; font-weight: 400; position: relative; }
+  .header .quarter-badge {
+    display: inline-block; background: linear-gradient(135deg, #ffd700, #ffaa00);
+    color: #1a1a2e; font-weight: 800; font-size: 14px; padding: 6px 20px;
+    border-radius: 30px; margin-top: 16px; letter-spacing: 1px; position: relative;
+  }
+
+  /* ---- STATS BAR ---- */
+  .stats-bar {
+    display: flex; justify-content: center; gap: 40px; margin: -20px auto 30px;
+    background: #141428; border-radius: 16px; padding: 24px 40px;
+    border: 1px solid rgba(255,215,0,0.1); position: relative; z-index: 2;
+    flex-wrap: wrap;
+  }
+  .stats-bar .stat { text-align: center; }
+  .stats-bar .stat .num { font-size: 32px; font-weight: 800; color: #ffd700; }
+  .stats-bar .stat .lbl { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  /* ---- PODIUM (top 3) ---- */
+  .podium-section { margin-bottom: 35px; }
+  .podium-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #fff; text-align: center; }
+  .podium {
+    display: flex; justify-content: center; align-items: flex-end; gap: 16px;
+    padding: 0 20px;
+  }
+  .podium-spot {
+    text-align: center; border-radius: 16px; padding: 28px 20px 20px;
+    position: relative; min-width: 180px; flex: 0 1 220px;
+    transition: transform 0.2s;
+  }
+  .podium-spot:hover { transform: translateY(-4px); }
+  .podium-spot.gold {
+    background: linear-gradient(135deg, #1a1500, #2a2200);
+    border: 2px solid rgba(255,215,0,0.3);
+    order: 2; min-height: 260px;
+  }
+  .podium-spot.silver {
+    background: linear-gradient(135deg, #1a1a1f, #222228);
+    border: 2px solid rgba(192,192,192,0.3);
+    order: 1; min-height: 220px;
+  }
+  .podium-spot.bronze {
+    background: linear-gradient(135deg, #1a1510, #221c14);
+    border: 2px solid rgba(205,127,50,0.3);
+    order: 3; min-height: 200px;
+  }
+  .podium-spot .medal { font-size: 44px; margin-bottom: 10px; }
+  .podium-spot .rank-num {
+    font-size: 60px; font-weight: 900; opacity: 0.08;
+    position: absolute; top: 10px; right: 16px;
+  }
+  .podium-spot .name { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .podium-spot .wins { font-size: 36px; font-weight: 900; }
+  .podium-spot.gold .wins { color: #ffd700; }
+  .podium-spot.silver .wins { color: #c0c0c0; }
+  .podium-spot.bronze .wins { color: #cd7f32; }
+  .podium-spot .wins-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ---- FULL TABLE ---- */
+  .table-section { margin-bottom: 35px; }
+  .table-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #fff; }
+  .lb-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    background: #141428; border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .lb-table th {
+    padding: 14px 16px; text-align: left; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 1px; color: #888;
+    background: #1a1a30; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .lb-table td {
+    padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+  }
+  .lb-table tr:last-child td { border-bottom: none; }
+  .lb-table tr:hover td { background: rgba(255,215,0,0.03); }
+  .lb-table .rank-cell { font-weight: 800; font-size: 16px; width: 60px; text-align: center; }
+  .lb-table .rank-cell.gold { color: #ffd700; }
+  .lb-table .rank-cell.silver { color: #c0c0c0; }
+  .lb-table .rank-cell.bronze { color: #cd7f32; }
+  .lb-table .name-cell { font-weight: 600; color: #fff; }
+  .lb-table .wins-cell { font-weight: 800; font-size: 18px; color: #ffd700; }
+
+  /* Trend indicators */
+  .trend { font-size: 11px; font-weight: 700; margin-left: 6px; padding: 2px 6px; border-radius: 4px; }
+  .trend.up { color: #00e676; background: rgba(0,230,118,0.1); }
+  .trend.down { color: #ff5252; background: rgba(255,82,82,0.1); }
+  .trend.same { color: #888; }
+  .trend.new { color: #448aff; background: rgba(68,138,255,0.1); }
+
+  /* Mini bar chart in table */
+  .mini-bars { display: flex; align-items: flex-end; gap: 2px; height: 30px; }
+  .mini-bar {
+    width: 14px; border-radius: 2px 2px 0 0;
+    background: rgba(255,215,0,0.15); position: relative;
+    transition: background 0.2s;
+  }
+  .mini-bar.active { background: rgba(255,215,0,0.6); }
+  .mini-bar:hover { background: rgba(255,215,0,0.8); }
+  .mini-bar .tip {
+    display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+    background: #333; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px;
+    white-space: nowrap;
+  }
+  .mini-bar:hover .tip { display: block; }
+
+  /* ---- QUARTERLY HISTORY ---- */
+  .history-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .q-card {
+    background: #141428; border-radius: 12px; padding: 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .q-card.current { border-color: rgba(255,215,0,0.3); }
+  .q-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+  .q-card .q-total { font-size: 12px; color: #888; margin-bottom: 12px; }
+  .q-card .q-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+  }
+  .q-card .q-row:last-child { border-bottom: none; }
+  .q-card .q-rank { font-weight: 700; width: 30px; }
+  .q-card .q-name { flex: 1; }
+  .q-card .q-wins { font-weight: 800; color: #ffd700; }
+
+  /* ---- FOOTER ---- */
+  .footer { text-align: center; padding: 30px; color: #444; font-size: 12px; }
+
+  @media (max-width: 700px) {
+    .podium { flex-direction: column; align-items: center; }
+    .podium-spot { order: unset !important; min-height: auto !important; width: 100%; }
+    .stats-bar { gap: 20px; padding: 20px; }
+    .header h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <h1><span class="trophy">🏆</span>Sales Leaderboard</h1>
+  <div class="subtitle">Cannabis Cashier/Forza + Non-MJ Pipelines &bull; Deals Won</div>
+  <div class="quarter-badge">Q1 2026 — CURRENT QUARTER</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="num">1</div><div class="lbl">Wins This Quarter</div></div>
+  <div class="stat"><div class="num">3</div><div class="lbl">Wins Last Quarter</div></div>
+  <div class="stat"><div class="num">30</div><div class="lbl">Total Wins Tracked</div></div>
+  <div class="stat"><div class="num">1</div><div class="lbl">Active Reps</div></div>
+</div>
+
+<!-- PODIUM -->
+<div class="podium-section">
+  <h2>🏆 Q1 2026 Top Performers</h2>
+  <div class="podium">
+    <div class="podium-spot gold">
+      <div class="rank-num">1</div>
+      <div class="medal">🥇</div>
+      <div class="name">AJ Stine</div>
+      <div class="wins">1</div>
+      <div class="wins-label">Deals Won</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FULL CURRENT QUARTER TABLE -->
+<div class="table-section">
+  <h2>📊 Q1 2026 Full Rankings</h2>
+  <table class="lb-table">
+    <thead>
+      <tr>
+        <th style="text-align:center">Rank</th>
+        <th>Rep</th>
+        <th>Deals Won</th>
+        <th>vs Last Q</th>
+        <th>Quarterly Trend</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell gold">🥇</td>
+        <td class="name-cell">AJ Stine <span class="trend new">NEW</span></td>
+        <td class="wins-cell">1</td>
+        <td><span style="color:#00e676">+1</span></td>
+        <td>
+          <div class="mini-bars">
+            <div class="mini-bar" style="height:2px"><span class="tip">Q1 2025: 0</span></div>
+            <div class="mini-bar" style="height:2px"><span class="tip">Q2 2025: 0</span></div>
+            <div class="mini-bar" style="height:2px"><span class="tip">Q3 2025: 0</span></div>
+            <div class="mini-bar" style="height:2px"><span class="tip">Q4 2025: 0</span></div>
+            <div class="mini-bar active" style="height:6px"><span class="tip">Q1 2026: 1</span></div>
+          </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<!-- ALL-TIME RANKINGS -->
+<div class="table-section">
+  <h2>👑 All-Time Rankings (2025–2026)</h2>
+  <table class="lb-table">
+    <thead>
+      <tr><th style="text-align:center">Rank</th><th>Rep</th><th>Total Wins</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-cell gold">🥇</td>
+        <td class="name-cell">Lily Benedict</td>
+        <td class="wins-cell">14</td>
+      </tr>
+      <tr>
+        <td class="rank-cell silver">🥈</td>
+        <td class="name-cell">Jessicalynne Leonard</td>
+        <td class="wins-cell">7</td>
+      </tr>
+      <tr>
+        <td class="rank-cell bronze">🥉</td>
+        <td class="name-cell">Josh Johnson</td>
+        <td class="wins-cell">3</td>
+      </tr>
+      <tr>
+        <td class="rank-cell ">#4</td>
+        <td class="name-cell">Alison Jeromchek</td>
+        <td class="wins-cell">3</td>
+      </tr>
+      <tr>
+        <td class="rank-cell ">#5</td>
+        <td class="name-cell">Michelle Stine</td>
+        <td class="wins-cell">2</td>
+      </tr>
+      <tr>
+        <td class="rank-cell ">#6</td>
+        <td class="name-cell">AJ Stine</td>
+        <td class="wins-cell">1</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- QUARTER-BY-QUARTER HISTORY -->
+<div class="table-section">
+  <h2>📅 Quarter-by-Quarter History</h2>
+  <div class="history-grid">
+    <div class="q-card current">
+      <h3>Q1 2026 <span style="color:#ffd700;font-size:11px">CURRENT</span></h3>
+      <div class="q-total">1 deals won</div>
+      <div class="q-row">
+        <span class="q-rank">🥇</span>
+        <span class="q-name">AJ Stine</span>
+        <span class="q-wins">1</span>
+      </div>
+
+
+    </div>
+    <div class="q-card">
+      <h3>Q4 2025 </h3>
+      <div class="q-total">3 deals won</div>
+      <div class="q-row">
+        <span class="q-rank">🥇</span>
+        <span class="q-name">Josh Johnson</span>
+        <span class="q-wins">1</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">🥈</span>
+        <span class="q-name">Lily Benedict</span>
+        <span class="q-wins">1</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">🥉</span>
+        <span class="q-name">Alison Jeromchek</span>
+        <span class="q-wins">1</span>
+      </div>
+
+
+    </div>
+    <div class="q-card">
+      <h3>Q3 2025 </h3>
+      <div class="q-total">7 deals won</div>
+      <div class="q-row">
+        <span class="q-rank">🥇</span>
+        <span class="q-name">Lily Benedict</span>
+        <span class="q-wins">4</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">🥈</span>
+        <span class="q-name">Josh Johnson</span>
+        <span class="q-wins">1</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">🥉</span>
+        <span class="q-name">Michelle Stine</span>
+        <span class="q-wins">1</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">#4</span>
+        <span class="q-name">Alison Jeromchek</span>
+        <span class="q-wins">1</span>
+      </div>
+
+
+    </div>
+    <div class="q-card">
+      <h3>Q2 2025 </h3>
+      <div class="q-total">8 deals won</div>
+      <div class="q-row">
+        <span class="q-rank">🥇</span>
+        <span class="q-name">Lily Benedict</span>
+        <span class="q-wins">4</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">🥈</span>
+        <span class="q-name">Jessicalynne Leonard</span>
+        <span class="q-wins">2</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">🥉</span>
+        <span class="q-name">Alison Jeromchek</span>
+        <span class="q-wins">1</span>
+      </div>
+
+
+    </div>
+    <div class="q-card">
+      <h3>Q1 2025 </h3>
+      <div class="q-total">12 deals won</div>
+      <div class="q-row">
+        <span class="q-rank">🥇</span>
+        <span class="q-name">Lily Benedict</span>
+        <span class="q-wins">5</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">🥈</span>
+        <span class="q-name">Jessicalynne Leonard</span>
+        <span class="q-wins">5</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">🥉</span>
+        <span class="q-name">Josh Johnson</span>
+        <span class="q-wins">1</span>
+      </div>
+      <div class="q-row">
+        <span class="q-rank">#4</span>
+        <span class="q-name">Michelle Stine</span>
+        <span class="q-wins">1</span>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Last updated: 2026-02-19 01:05:09 UTC<br>
+  Data from HubSpot | Pipelines: Cannabis Cashier/Forza + Non-MJ 2026<br>
+  Run <code style="background:#222;padding:2px 6px;border-radius:4px">node leaderboard.js</code> or double-click <code style="background:#222;padding:2px 6px;border-radius:4px">Run Scorecard.bat</code> to refresh
+</div>
+
+</div>
+</body>
+</html>
