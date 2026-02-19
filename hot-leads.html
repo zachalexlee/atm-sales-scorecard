@@ -113,6 +113,8 @@
   <a href="index.html">📊 Scorecard</a>
   <a href="leaderboard.html">🏆 Leaderboard</a>
   <a href="hot-leads.html" class="active">🔥 Hot Leads</a>
+  <a href="activity-outcomes.html">📈 Activity Correlation</a>
+  <a href="email-call-metrics.html">📧 Email/Call Metrics</a>
 </div>
 
 <div class="header">
@@ -122,9 +124,9 @@
 </div>
 
 <div class="stats-bar">
-  <div class="stat"><div class="num">180</div><div class="lbl">Hot Leads Found</div></div>
+  <div class="stat"><div class="num">215</div><div class="lbl">Hot Leads Found</div></div>
   <div class="stat"><div class="num">6867</div><div class="lbl">Open Deals Scanned</div></div>
-  <div class="stat"><div class="num">41</div><div class="lbl">🔥 Priority Leads</div></div>
+  <div class="stat"><div class="num">69</div><div class="lbl">🔥 Priority Leads</div></div>
   <div class="stat"><div class="num">3%</div><div class="lbl">Hit Rate</div></div>
 </div>
 
@@ -132,32 +134,32 @@
 <div class="signal-grid">
   <div class="signal-card">
     <div class="sig-icon">🔥</div>
-    <div class="sig-count" style="color:#ff4444">3</div>
+    <div class="sig-count" style="color:#ff4444">4</div>
     <div class="sig-label">Ready to Buy</div>
   </div>
   <div class="signal-card">
     <div class="sig-icon">⚡</div>
-    <div class="sig-count" style="color:#ff8800">6</div>
+    <div class="sig-count" style="color:#ff8800">9</div>
     <div class="sig-label">Very Interested</div>
   </div>
   <div class="signal-card">
     <div class="sig-icon">📞</div>
-    <div class="sig-count" style="color:#2196f3">42</div>
+    <div class="sig-count" style="color:#2196f3">57</div>
     <div class="sig-label">Callback Requested</div>
   </div>
   <div class="signal-card">
     <div class="sig-icon">💰</div>
-    <div class="sig-count" style="color:#4caf50">16</div>
+    <div class="sig-count" style="color:#4caf50">31</div>
     <div class="sig-label">Price/Quote Discussion</div>
   </div>
   <div class="signal-card">
     <div class="sig-icon">🏪</div>
-    <div class="sig-count" style="color:#9c27b0">132</div>
+    <div class="sig-count" style="color:#9c27b0">151</div>
     <div class="sig-label">New Location/Opening</div>
   </div>
   <div class="signal-card">
     <div class="sig-icon">⚠️</div>
-    <div class="sig-count" style="color:#f44336">1</div>
+    <div class="sig-count" style="color:#f44336">2</div>
     <div class="sig-label">Urgent/Time-Sensitive</div>
   </div>
 </div>
@@ -167,15 +169,15 @@
   <h2>👥 Hot Leads by Rep</h2>
   <div class="owner-row">
     <span class="oname">Jessicalynne Leonard</span>
-    <span class="ocount">56 hot leads</span>
+    <span class="ocount">69 hot leads</span>
   </div>
   <div class="owner-row">
     <span class="oname">Lily Benedict</span>
-    <span class="ocount">39 hot leads</span>
+    <span class="ocount">50 hot leads</span>
   </div>
   <div class="owner-row">
     <span class="oname">Alison Jeromchek</span>
-    <span class="ocount">35 hot leads</span>
+    <span class="ocount">46 hot leads</span>
   </div>
   <div class="owner-row">
     <span class="oname">Michelle Stine</span>
@@ -200,9 +202,9 @@
   <label>Filter by:</label>
   <select id="filterRep" onchange="applyFilters()">
     <option value="all">All Reps</option>
-    <option value="140424985">Jessicalynne Leonard (56)</option>
-    <option value="63358838">Lily Benedict (39)</option>
-    <option value="596471082">Alison Jeromchek (35)</option>
+    <option value="140424985">Jessicalynne Leonard (69)</option>
+    <option value="63358838">Lily Benedict (50)</option>
+    <option value="596471082">Alison Jeromchek (46)</option>
     <option value="50874804">Michelle Stine (22)</option>
     <option value="50874767">Josh Johnson (5)</option>
     <option value="50206862">Zachery Lee (4)</option>
@@ -210,12 +212,12 @@
   </select>
   <select id="filterSignal" onchange="applyFilters()">
     <option value="all">All Signals</option>
-    <option value="🔥 Ready to Buy">🔥 Ready to Buy (3)</option>
-    <option value="⚡ Very Interested">⚡ Very Interested (6)</option>
-    <option value="📞 Callback Requested">📞 Callback Requested (42)</option>
-    <option value="💰 Price/Quote Discussion">💰 Price/Quote Discussion (16)</option>
-    <option value="🏪 New Location/Opening">🏪 New Location/Opening (132)</option>
-    <option value="⚠️ Urgent/Time-Sensitive">⚠️ Urgent/Time-Sensitive (1)</option>
+    <option value="🔥 Ready to Buy">🔥 Ready to Buy (4)</option>
+    <option value="⚡ Very Interested">⚡ Very Interested (9)</option>
+    <option value="📞 Callback Requested">📞 Callback Requested (57)</option>
+    <option value="💰 Price/Quote Discussion">💰 Price/Quote Discussion (31)</option>
+    <option value="🏪 New Location/Opening">🏪 New Location/Opening (151)</option>
+    <option value="⚠️ Urgent/Time-Sensitive">⚠️ Urgent/Time-Sensitive (2)</option>
   </select>
   <select id="filterFreshness" onchange="applyFilters()">
     <option value="all">All Deals</option>
@@ -223,12 +225,12 @@
     <option value="recent">Active last 30 days</option>
     <option value="stale">Stale (30+ days)</option>
   </select>
-  <span class="filter-count" id="filterCount">180 deals</span>
+  <span class="filter-count" id="filterCount">215 deals</span>
 </div>
 
 <!-- All Hot Deals -->
 <div class="section">
-  <h2>🔥 All Hot Leads (180 found, ranked by signal strength)</h2>
+  <h2>🔥 All Hot Leads (215 found, ranked by signal strength)</h2>
   <div class="deal-card" style="border-left-color:#ff4444" data-owner="63358838" data-signals="🔥 Ready to Buy|📞 Callback Requested|⚡ Very Interested|💰 Price/Quote Discussion" data-days="1">
     <div class="deal-top">
       <div>
@@ -252,6 +254,30 @@
       <div class="snippet" style="border-left-color:#ff4444"><span class="src">Note:</span> ...ady but told me he would hear me out as he hasn't <mark>signed</mark> anything. &nbsp;Michelle is sending him a proposa...</div>
       <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> left vm sent email to <mark>follow up</mark> with Alex</div>
       <div class="snippet" style="border-left-color:#ff8800"><span class="src">Note:</span> ...ction . ATM &amp; Debit Service Options Option 1: <mark>ATM Placement</mark> with Cash Loading + Our Debit Terminals We provid...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#ff4444" data-owner="596471082" data-signals="🔥 Ready to Buy|💰 Price/Quote Discussion|🏪 New Location/Opening" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/29076872218" target="_blank">Five Borough Farms, LLC (Brooklyn, NY) - MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 Lead In</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 13 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#fff0f0;color:#ff4444">Score: 300</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#fff0f0;color:#ff4444">🔥 Ready to Buy</span>
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#ff4444"><span class="src">Note:</span> ...that this violates established proximity rules de<mark>signed</mark> to prevent oversaturation and protect early retai...</div>
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...tate’s rules would protect his ability to operate <mark>competitive</mark>ly. When those rules are not enforced, he said, it...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...investor withdrew during the buildout, citing the <mark>new dispensary</mark>’s location, resulting in $50,000 in sunk design c...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#ff8800" data-owner="140424985" data-signals="🏪 New Location/Opening|📞 Callback Requested|⚡ Very Interested" data-days="8">
@@ -278,6 +304,28 @@
       <div class="snippet" style="border-left-color:#ff8800"><span class="src">Call Log:</span> ...Nathan Bernardi Spoke with Nathan, he said he is <mark>looking for an atm</mark> currently. Told him about our holiday sale, he sa...</div>
     </div>
   </div>
+  <div class="deal-card" style="border-left-color:#f44336" data-owner="140424985" data-signals="🏪 New Location/Opening|⚠️ Urgent/Time-Sensitive" data-days="8">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/238644677367" target="_blank">Brownies LLC (Binghamton, NY) - MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Called Multiple Times</span>
+          <span>⏰ 8d since update</span>
+          <span>📝 39 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#fff0f0;color:#f44336">Score: 180</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+      <span class="hit-tag" style="background:#fff0f0;color:#f44336">⚠️ Urgent/Time-Sensitive</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Proposed Address: 272 Washington St, Binghamton,...</div>
+      <div class="snippet" style="border-left-color:#f44336"><span class="src">Note:</span> ...vm, nml 2704 - NA, gen vm, nml 0026 - dialer just <mark>immediately</mark> disconnects 2822 - 1 ring then gen vm, nml</div>
+    </div>
+  </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="140424985" data-signals="💰 Price/Quote Discussion|🏪 New Location/Opening" data-days="1">
     <div class="deal-top">
       <div>
@@ -298,6 +346,50 @@
     <div class="snippets">
       <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> The Eureka Planning <mark>Commission</mark> is set to review a permit application for a propo...</div>
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...mile, and another approved shop by Lotta Farms is <mark>under construction</mark> nearby, reinforcing Broadway’s role as a cannabis...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="💰 Price/Quote Discussion|🏪 New Location/Opening" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/258705010420" target="_blank">BRILA LLC d/b/a High Value Cannabis – 2 Locations (Maine) - MJ ✔️#</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Called Multiple Times</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 14 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 175</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...is products at unbeatable value, with transparent <mark>pricing</mark> and a consistent customer experience you can trus...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>Opening Soon</mark>: High Value Cannabis in Portland &amp; Waterville...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="💰 Price/Quote Discussion|🏪 New Location/Opening" data-days="1">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300330879721" target="_blank">Colbea Enterprises LLC – Gas Station/C-Store (Portsmouth, NH) - NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Lead In</span>
+          <span>⏰ 1d since update</span>
+          <span>📝 5 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 175</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...cture has been in place since 1999 and is what ope<mark>rates</mark> the Seasons Corner Market brand and associated ga...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...es=false Nicole Bailey District Manager – Handles <mark>new store</mark> openings nbailey@eastsideenterprise.com nicolebai...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#ff8800" data-owner="140424985" data-signals="⚡ Very Interested|📞 Callback Requested" data-days="0">
@@ -342,6 +434,28 @@
     <div class="snippets">
       <div class="snippet" style="border-left-color:#ff8800"><span class="src">Call Log:</span> ...e a good email: Calihappi@aol.com and asked me to <mark>send info</mark>.</div>
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Call Log:</span> ...ud Company. They are working on the license for a <mark>second location</mark>. She gave me a good email: Calihappi@aol.com and...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#ff8800" data-owner="140424985" data-signals="⚡ Very Interested|📞 Callback Requested" data-days="1">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/223340460763" target="_blank">Atlantic Rol Liquor (Brooklyn, NY) - NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 No Contact Made (Sent Email)</span>
+          <span>⏰ 1d since update</span>
+          <span>📝 8 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#fff8f0;color:#ff8800">Score: 170</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#fff8f0;color:#ff8800">⚡ Very Interested</span>
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#ff8800"><span class="src">Note:</span> ...aid she would have her manager call me back if we <mark>need an atm</mark>. Shu was listed as the ceo so I'm confused, maybe...</div>
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...ier there and she said she would have her manager <mark>call me back</mark> if we need an atm. Shu was listed as the ceo so I...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="📞 Callback Requested|🏪 New Location/Opening" data-days="0">
@@ -454,6 +568,72 @@
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> talked to Jerry. &nbsp;They are still <mark>under construction</mark> but hoping to be finished by the end of the month...</div>
     </div>
   </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="📞 Callback Requested|🏪 New Location/Opening" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/267595512538" target="_blank">Exotic Farms Dispensary (Brockport, NY) – MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 Lead In</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 4 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 165</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...happy and have no problems than ask if you could <mark>call back</mark> in 6 months just to make sure and if he's all set...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>, opened somewhat recently. See if they're happy w...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="📞 Callback Requested|🏪 New Location/Opening" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/293205457610" target="_blank">Flower BNK Cannabis Dispensary (Schenectady, NY) -MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 Lead In</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 3 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 165</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...r next few months but ask if you could give him a <mark>call back</mark> in 5-6 months to make sure he’s all set. Reiterat...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> PLEASE READ : They <mark>just opened</mark> Dec 6th, 2025. Call and see if they’re happy with...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#ff8800" data-owner="596471082" data-signals="⚡ Very Interested|💰 Price/Quote Discussion" data-days="9">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/260450672376" target="_blank">Urban Family Waterfront (Seattle, WA) – NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 2nd Call Attempted</span>
+          <span>⏰ 9d since update</span>
+          <span>📝 12 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#fff8f0;color:#ff8800">Score: 165</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#fff8f0;color:#ff8800">⚡ Very Interested</span>
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#ff8800"><span class="src">Note:</span> We’re <mark>excited</mark> to announce we’re opening a new Seattle Waterfron...</div>
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> Sent Cash <mark>Discount</mark>ing email also.</div>
+    </div>
+  </div>
   <div class="deal-card" style="border-left-color:#4caf50" data-owner="63358838" data-signals="📞 Callback Requested|💰 Price/Quote Discussion" data-days="0">
     <div class="deal-top">
       <div>
@@ -474,6 +654,50 @@
     <div class="snippets">
       <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> @Lily Benedict Time to <mark>follow up</mark> After years of delays and disputes, the Alabama M...</div>
       <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...delays and disputes, the Alabama Medical Cannabis <mark>Commission</mark> voted to award licenses to four dispensary applic...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="140424985" data-signals="📞 Callback Requested|💰 Price/Quote Discussion" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/22586478382" target="_blank">Cali Happy Realty Corp (Jamaica, NY / MJ)</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Postponed</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 12 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 160</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...said I can send her more info and she asked for a <mark>call back</mark> in a few months to check in, said she will be sav...</div>
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> 4146 - Anita called me back. She ope<mark>rates</mark> one dispensary in Lancaster, CA and she's opening...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="63358838" data-signals="📞 Callback Requested|💰 Price/Quote Discussion" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/245393696450" target="_blank">Green Land Retail LLC (Staten Island, NY) - MJ CALL FEB 11th</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Very Interested (You Got This!)</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 10 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 160</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...e said there is no room for us to go lower. &nbsp;<mark>Call back</mark> on Monday after he confirms the $3.00 fee with th...</div>
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> Spoke to Nabil. &nbsp;He said he confirmed the <mark>transaction fee</mark> for debit card readers will be $3.00. &nbsp;He sa...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening|💰 Price/Quote Discussion" data-days="9">
@@ -520,6 +744,50 @@
       <div class="snippet" style="border-left-color:#4caf50"><span class="src">Call Log:</span> ...nbsp;I will send the email plus an application. I <mark>quote</mark>d prices on our email $2699.00. &nbsp;she knows sh...</div>
     </div>
   </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="140424985" data-signals="💰 Price/Quote Discussion|📞 Callback Requested" data-days="0">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/275401026271" target="_blank">Bond Brothers Kitchen & Bar (Morrisville, NC) - NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Lead In</span>
+          <span>⏰ 0d since update</span>
+          <span>📝 9 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 160</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...International Airport (RDU) Terminal 2 Pitch Cash <mark>Discount</mark>ing!! This could be a huge account.</div>
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> Sent emails. Will check back for views before I <mark>call tomorrow</mark>.</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="140424985" data-signals="📞 Callback Requested|💰 Price/Quote Discussion" data-days="1">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/218926251708" target="_blank">Catrachas Mini Market (Mesa, AZ) – NONmj ✔️# </a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Backburner / On Hold</span>
+          <span>⏰ 1d since update</span>
+          <span>📝 12 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 160</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...me quote and the day after, she didn't answer or <mark>call me back</mark>.</div>
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...lled twice from my cellphone the day Mike gave me <mark>quote</mark> and the day after, she didn't answer or call me b...</div>
+    </div>
+  </div>
   <div class="deal-card" style="border-left-color:#ff8800" data-owner="140424985" data-signals="⚡ Very Interested|📞 Callback Requested" data-days="8">
     <div class="deal-top">
       <div>
@@ -564,6 +832,50 @@
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...Y 11204 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <mark>New dispensary</mark>, not yet operational. Confirmed number.</div>
     </div>
   </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="📞 Callback Requested|🏪 New Location/Opening" data-days="13">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/40830328855" target="_blank">Planet Nugg d/b/a North Fork Cannabis Company (Aquebogue, NY) – MJ ✔️#</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Called Multiple Times</span>
+          <span>⏰ 13d since update</span>
+          <span>📝 12 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 150</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...t throwing this back into leadin, good time for a <mark>follow up</mark> call. Dispensary listed as not yet operational. G...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ..., a dispensary based in Farmingdale, is opening a <mark>second location</mark> at 720 Main Road, across the street from Woodside...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="📞 Callback Requested|🏪 New Location/Opening" data-days="13">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/239423347421" target="_blank">KGDM ENTERPRISE LLC (Farmingdale, NY) - MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Called Multiple Times</span>
+          <span>⏰ 13d since update</span>
+          <span>📝 10 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 150</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...le to leave message. numbers wrong or unavailable <mark>call back</mark></div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Not yet operational. Proposed Address: 120 Broad...</div>
+    </div>
+  </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="💰 Price/Quote Discussion|🏪 New Location/Opening" data-days="20">
     <div class="deal-top">
       <div>
@@ -584,6 +896,94 @@
     <div class="snippets">
       <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...rk. Despite this progress, public feedback at the <mark>commission</mark> meeting was overwhelmingly critical. Patients, ad...</div>
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...ia’s medical marijuana regulators have approved a <mark>new dispensary</mark> license after surpassing a key enrollment thresho...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="140424985" data-signals="💰 Price/Quote Discussion|🏪 New Location/Opening" data-days="25">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/31123072687" target="_blank">Barbershop (NV) - NONMJ ✔️#</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Very Interested</span>
+          <span>⏰ 25d since update</span>
+          <span>📝 21 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 145</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...d I would inquire about options. He said great. I <mark>quote</mark>d him $2,710 for a genmega g2500 1k. Told him i wo...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...sing but having us load for maybe a year and then <mark>taking over</mark> loading himself. I said I didn't know how long th...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#ff8800" data-owner="596471082" data-signals="⚡ Very Interested|📞 Callback Requested" data-days="18">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/231962451700" target="_blank">Purple Provisions, LLC d/b/a Happy Times Cannabis Co. (Staten Island, NY) - MJ </a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 Answered/ Sent Email</span>
+          <span>⏰ 18d since update</span>
+          <span>📝 13 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#fff8f0;color:#ff8800">Score: 140</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#fff8f0;color:#ff8800">⚡ Very Interested</span>
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#ff8800"><span class="src">Note:</span> ...used much, so had it taken out. &nbsp;They don't <mark>want an ATM</mark> now. &nbsp;But I'll try again in a few months - I...</div>
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...&nbsp;They don't want an ATM now. &nbsp;But I'll <mark>try again</mark> in a few months - I did send out email.</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening|📞 Callback Requested" data-days="15">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/232531959497" target="_blank">Owl Be Smokin, Inc. (Newark, NY) - MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 2nd Call / No Answer - Sent Email</span>
+          <span>⏰ 15d since update</span>
+          <span>📝 30 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 135</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Not yet operational. Proposed address : 213 W Un...</div>
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Call Log:</span> Call with birdiesshadow@yahoo.com mail box full. <mark>Try again</mark>.</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="140424985" data-signals="🏪 New Location/Opening|📞 Callback Requested" data-days="18">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/15321240613" target="_blank">Warrior Weed LLC (Jersey City, NJ / MJ) - ✔️# Ready/Opening Soon!</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Very Interested (You Got This!)</span>
+          <span>⏰ 18d since update</span>
+          <span>📝 55 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 135</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> ...rrior Weed LLC (Jersey City, NJ / MJ) - ✔️# Ready/<mark>Opening Soon</mark>!</div>
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> Sent an email today. Told her I'd be calling to <mark>follow up</mark> next week.</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="📞 Callback Requested|🏪 New Location/Opening" data-days="27">
@@ -948,6 +1348,66 @@
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> ...Cure Cannabis Dispensary (Delmar, MD / MJ) ✔️# - <mark>OPENING SOON</mark> SPRING 2026</div>
     </div>
   </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="140424985" data-signals="🏪 New Location/Opening" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/225354891001" target="_blank">Victory Dispensary LLC (Bronx, NY) – MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Update Requested</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 30 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 105</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New dispensary</mark>. Not yet operational. I believe I found the corre...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/34005703955" target="_blank">2147 44th LLC (Queens, NY / MJ)</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 2nd Call / No Answer - Sent Email</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 38 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 105</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> 2/10/26 - called from my cell - no luck, but <mark>new business</mark>, so keep trying. sent 2026 emails.</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/263694501600" target="_blank">3 Guys Canna, LLC (Buffalo, NY) – MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 2nd Call / No Answer - Sent Email</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 14 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 105</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Not yet operational. I believe I got the correct...</div>
+    </div>
+  </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="7">
     <div class="deal-top">
       <div>
@@ -965,7 +1425,7 @@
       <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
     </div>
     <div class="snippets">
-      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Call Log:</span> ...close to a school, so they'll keep looking for a <mark>new location</mark>.</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Not yet operational. Proposed Address: 1165 Bedf...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening" data-days="7">
@@ -1006,6 +1466,26 @@
     </div>
     <div class="snippets">
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> ...nc. (Long Island, NY) - MJ (partly operational) - <mark>Opening Soon</mark></div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="140424985" data-signals="🏪 New Location/Opening" data-days="0">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/275401022152" target="_blank">Warm Beach Grocery (Stanwood, WA) – NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 2nd Call Attempted</span>
+          <span>⏰ 0d since update</span>
+          <span>📝 11 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 105</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> I believe Madison is the <mark>new owner</mark>, she is also the property owner. May already have...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="140424985" data-signals="🏪 New Location/Opening" data-days="1">
@@ -1086,6 +1566,126 @@
     </div>
     <div class="snippets">
       <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...oors she said. Wants me to send her over the info/<mark>pricing</mark> again and said she will reach back out to me when...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="140424985" data-signals="💰 Price/Quote Discussion" data-days="0">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292237753055" target="_blank">Gas Station (Burton, MI) – NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Contact Made (Sent Email)</span>
+          <span>⏰ 0d since update</span>
+          <span>📝 7 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 100</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...set with an atm. not interested. I'll pitch cash <mark>discount</mark>ing via email..</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="140424985" data-signals="💰 Price/Quote Discussion" data-days="0">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300330902216" target="_blank">“Hometown Gas Station” d/b/a TBD (Grafton, WI) - NONmj ✔️# </a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Lead In</span>
+          <span>⏰ 0d since update</span>
+          <span>📝 6 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 100</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> Approval Status &amp; Timeline The Plan <mark>Commission</mark> considered the CUP on December 16, 2025 . Archite...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="140424985" data-signals="💰 Price/Quote Discussion" data-days="1">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/294210681542" target="_blank">K Brothers LLC (Meriden, CT) - NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 2nd Call Attempted</span>
+          <span>⏰ 1d since update</span>
+          <span>📝 16 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 100</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...in-21281880.php &nbsp; &nbsp; &nbsp;K Brothers ope<mark>rates</mark> Gulf-branded station in Suffield. Meriden locatio...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="140424985" data-signals="💰 Price/Quote Discussion" data-days="1">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292471267062" target="_blank">Market Station (Oconee County, GA) - NONmj ✔️#</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 2nd Call Attempted</span>
+          <span>⏰ 1d since update</span>
+          <span>📝 11 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 100</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...(Board approved Jan 7, 2026) Approved by Board of <mark>Commission</mark>ers &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; http...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="140424985" data-signals="💰 Price/Quote Discussion" data-days="1">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292394257143" target="_blank">Belmont Blvd, LLC – Gas Station (West Richland, WA) - NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 2nd Call Attempted</span>
+          <span>⏰ 1d since update</span>
+          <span>📝 21 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 100</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> ...Blvd, West Richland, WA. Pitch CC Processing/Cash <mark>Discount</mark>ing &amp; ATM. Not yet open, likely looking at a l...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#4caf50" data-owner="596471082" data-signals="💰 Price/Quote Discussion" data-days="1">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/294210664183" target="_blank">On the Bun (Lowell, MA) - NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 Lead In</span>
+          <span>⏰ 1d since update</span>
+          <span>📝 3 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0fff0;color:#4caf50">Score: 100</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0fff0;color:#4caf50">💰 Price/Quote Discussion</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#4caf50"><span class="src">Note:</span> New restaurant/bar. Pitch CC processing/Cash <mark>Discount</mark>ing, maybe POS Systems.</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="0">
@@ -1231,26 +1831,6 @@
   <div class="deal-card" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="6">
     <div class="deal-top">
       <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/218333531879" target="_blank">Lovewell Provisions, LLC d/b/a Paper Crane Cannabis (Hubbardston, MA) – MJ</a></div>
-        <div class="deal-meta">
-          <span>👤 Jessicalynne Leonard</span>
-          <span>📋 Postponed</span>
-          <span>⏰ 6d since update</span>
-          <span>📝 15 activities</span>
-        </div>
-      </div>
-      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 90</div>
-    </div>
-    <div class="hit-tags">
-      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
-    </div>
-    <div class="snippets">
-      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Call Log:</span> ...in 3 more months or so. Told her sure thing. Will <mark>follow up</mark>.</div>
-    </div>
-  </div>
-  <div class="deal-card" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="6">
-    <div class="deal-top">
-      <div>
         <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/239423360741" target="_blank">Dispensary Name TBD (Staten Island, NY) - MJ</a></div>
         <div class="deal-meta">
           <span>👤 Jessicalynne Leonard</span>
@@ -1326,6 +1906,26 @@
     </div>
     <div class="snippets">
       <div class="snippet" style="border-left-color:#2196f3"><span class="src">Call Log:</span> ...so it will still be a while longer. Told him I'd <mark>follow up</mark>.</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#2196f3" data-owner="596471082" data-signals="📞 Callback Requested" data-days="7">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/16964514563" target="_blank">Oregon's Own (Salem, OR / MJ) - Coming Soon ✔️#</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 Update Requested</span>
+          <span>⏰ 7d since update</span>
+          <span>📝 67 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 90</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...12/19, the address previously worked. &nbsp;I'll <mark>try again</mark>, but last time it bounced - I need to get updated...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="8">
@@ -1711,11 +2311,31 @@
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="12">
     <div class="deal-top">
       <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/13833713008" target="_blank">Big Dipper NY, LLC (Staten Island, NY) - MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 2nd Call / Answered - Sent Email</span>
+          <span>⏰ 12d since update</span>
+          <span>📝 63 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 90</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> REVAMPING DEAL... Call like new. <mark>New location</mark> in Staten Island that's not yet operational. Cond...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="13">
+    <div class="deal-top">
+      <div>
         <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/18495381292" target="_blank">Botanical Bliss Inc. (HANOVER, MD / MJ) ✔️# - Opening Soonish</a></div>
         <div class="deal-meta">
           <span>👤 Alison Jeromchek</span>
           <span>📋 Very Interested (You Got This!)</span>
-          <span>⏰ 12d since update</span>
+          <span>⏰ 13d since update</span>
           <span>📝 176 activities</span>
         </div>
       </div>
@@ -1731,31 +2351,11 @@
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening" data-days="13">
     <div class="deal-top">
       <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/239842596592" target="_blank">Banana Kelly Community Improvement Association Inc d/b/a High Hopes (Bronx, NY) - MJ</a></div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/224457811674" target="_blank">14707 45th LLC (Wallkill, NY) - MJ</a></div>
         <div class="deal-meta">
           <span>👤 Lily Benedict</span>
           <span>📋 Called Multiple Times</span>
           <span>⏰ 13d since update</span>
-          <span>📝 10 activities</span>
-        </div>
-      </div>
-      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 90</div>
-    </div>
-    <div class="hit-tags">
-      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
-    </div>
-    <div class="snippets">
-      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Not yet operational. Proposed Address: 1283 West...</div>
-    </div>
-  </div>
-  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening" data-days="14">
-    <div class="deal-top">
-      <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/258010841812" target="_blank">Wintergreen Wellness LLC d/b/a Wintergreen (Tannersville, NY) - MJ</a></div>
-        <div class="deal-meta">
-          <span>👤 Lily Benedict</span>
-          <span>📋 2nd Call / No Answer - Sent Email</span>
-          <span>⏰ 14d since update</span>
           <span>📝 9 activities</span>
         </div>
       </div>
@@ -1765,18 +2365,38 @@
       <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
     </div>
     <div class="snippets">
-      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Can't find any evidence that it’s operational ye...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Not yet operational. Wei Li's numbers are iffy b...</div>
     </div>
   </div>
-  <div class="deal-card" style="border-left-color:#2196f3" data-owner="596471082" data-signals="📞 Callback Requested" data-days="2">
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening" data-days="13">
     <div class="deal-top">
       <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/35810708795" target="_blank">PENINSULA BREWING CO (Silverdale, WA)</a></div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/224236603066" target="_blank">Empire Genetics New York Inc. d/b/a Aromatic Gardens (West Babylon, NY) – MJ</a></div>
         <div class="deal-meta">
-          <span>👤 Alison Jeromchek</span>
-          <span>📋 Very Interested</span>
-          <span>⏰ 2d since update</span>
-          <span>📝 24 activities</span>
+          <span>👤 Lily Benedict</span>
+          <span>📋 Called Multiple Times</span>
+          <span>⏰ 13d since update</span>
+          <span>📝 11 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 90</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...firmed, but I added couple others just in case... <mark>New Dispensary</mark>. Not yet operational. Proposed Address: 231 Ediso...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#2196f3" data-owner="63358838" data-signals="📞 Callback Requested" data-days="1">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/43743226690" target="_blank">PIT STOP DELI MART (Aberdeen, WA) - Assumption</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Contact Made (Sent Email)</span>
+          <span>⏰ 1d since update</span>
+          <span>📝 12 activities</span>
         </div>
       </div>
       <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 90</div>
@@ -1785,27 +2405,27 @@
       <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
     </div>
     <div class="snippets">
-      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Call Log:</span> ...im, but we had no luck getting hold of him. &nbsp;<mark>Try again</mark>.</div>
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...d got broken into so he's nervous about it. &nbsp;<mark>call back</mark> 3 months</div>
     </div>
   </div>
-  <div class="deal-card" style="border-left-color:#2196f3" data-owner="596471082" data-signals="📞 Callback Requested" data-days="3">
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening" data-days="12">
     <div class="deal-top">
       <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/42448835208" target="_blank">PIE DIVE BAR (La Conner, WA) - New</a></div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/255828456149" target="_blank">R & R GROUPS LLC (Marysville, WA) - Assumption</a></div>
         <div class="deal-meta">
-          <span>👤 Alison Jeromchek</span>
-          <span>📋 Very Interested</span>
-          <span>⏰ 3d since update</span>
-          <span>📝 57 activities</span>
+          <span>👤 Lily Benedict</span>
+          <span>📋 No Contact Made (Sent Email)</span>
+          <span>⏰ 12d since update</span>
+          <span>📝 7 activities</span>
         </div>
       </div>
-      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 90</div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 90</div>
     </div>
     <div class="hit-tags">
-      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
     </div>
     <div class="snippets">
-      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Call Log:</span> ...f house looking with her realtor. &nbsp;Requested <mark>call tomorrow</mark>, which I will. I'll send email after we talk.</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...2025 Current Business Name: CAPTAIN DIZZY CHEVRON <mark>New Business</mark> Name: R &amp; R GROUPS LLC Business Location: 120...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="50874804" data-signals="🏪 New Location/Opening" data-days="13">
@@ -1968,6 +2588,26 @@
       <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...s on past emails with this address we have. &nbsp;<mark>try again</mark>.</div>
     </div>
   </div>
+  <div class="deal-card" style="border-left-color:#2196f3" data-owner="63358838" data-signals="📞 Callback Requested" data-days="13">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/240440324798" target="_blank">BK Greenery (Brooklyn, NY) - MJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Called Multiple Times</span>
+          <span>⏰ 13d since update</span>
+          <span>📝 13 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 75</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> sent <mark>follow up</mark> emails</div>
+    </div>
+  </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="50874767" data-signals="🏪 New Location/Opening" data-days="15">
     <div class="deal-top">
       <div>
@@ -1988,15 +2628,15 @@
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> Herb Hub LLC (New Hyde Park, NY / MJ) - <mark>Opening Soon</mark></div>
     </div>
   </div>
-  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="50874804" data-signals="🏪 New Location/Opening" data-days="18">
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening" data-days="15">
     <div class="deal-top">
       <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/32781401497" target="_blank">xylocopa exotics LLC (Brooklyn, NY / MJ)</a></div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/239542765267" target="_blank">Fortwentie inc. (Buffalo, NY) – MJ</a></div>
         <div class="deal-meta">
-          <span>👤 Michelle Stine</span>
+          <span>👤 Lily Benedict</span>
           <span>📋 2nd Call / No Answer - Sent Email</span>
-          <span>⏰ 18d since update</span>
-          <span>📝 30 activities</span>
+          <span>⏰ 15d since update</span>
+          <span>📝 10 activities</span>
         </div>
       </div>
       <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 75</div>
@@ -2005,18 +2645,18 @@
       <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
     </div>
     <div class="snippets">
-      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> @Josh Johnson thinking this is the <mark>new location</mark>? Or an additional one? Anyways here: OCM-RETL-25-...</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Not yet operational. I’d call him “Phet” for sho...</div>
     </div>
   </div>
-  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="140424985" data-signals="🏪 New Location/Opening" data-days="18">
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="15">
     <div class="deal-top">
       <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/15321240613" target="_blank">Warrior Weed LLC (Jersey City, NJ / MJ) - ✔️# Ready/Opening Soon!</a></div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/241574156004" target="_blank">Cannabis Horizon Holdings (Bronx, NY) - MJ</a></div>
         <div class="deal-meta">
-          <span>👤 Jessicalynne Leonard</span>
-          <span>📋 Very Interested (You Got This!)</span>
-          <span>⏰ 18d since update</span>
-          <span>📝 55 activities</span>
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 Answered/ Sent Email</span>
+          <span>⏰ 15d since update</span>
+          <span>📝 9 activities</span>
         </div>
       </div>
       <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 75</div>
@@ -2025,7 +2665,7 @@
       <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
     </div>
     <div class="snippets">
-      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> ...rrior Weed LLC (Jersey City, NJ / MJ) - ✔️# Ready/<mark>Opening Soon</mark>!</div>
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> <mark>New Dispensary</mark>. Proposed Address: 938 Intervale Ave, Bronx, NY 1...</div>
     </div>
   </div>
   <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening" data-days="20">
@@ -2168,6 +2808,26 @@
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...des a refreshed façade (black with gold accents), <mark>new store</mark>front glazing and entrance, updated building signa...</div>
     </div>
   </div>
+  <div class="deal-card stale" style="border-left-color:#9c27b0" data-owner="50874804" data-signals="🏪 New Location/Opening" data-days="33">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/20358079089" target="_blank">Back to the Land Herbs, LLC (Colton, NY / MJ) ✔️#</a><span class="stale-badge">STALE 33d</span></div>
+        <div class="deal-meta">
+          <span>👤 Michelle Stine</span>
+          <span>📋 Update Requested</span>
+          <span>⏰ 33d since update</span>
+          <span>📝 36 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 75</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Call Log:</span> .... Is there any way to find out who is going to be <mark>taking over</mark> here @Josh Johnson</div>
+    </div>
+  </div>
   <div class="deal-card stale" style="border-left-color:#9c27b0" data-owner="80312936" data-signals="🏪 New Location/Opening" data-days="53">
     <div class="deal-top">
       <div>
@@ -2188,14 +2848,54 @@
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> Bard Boys (Oxnard, CA / MJ) - <mark>Under Construction</mark></div>
     </div>
   </div>
-  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="23">
+  <div class="deal-card" style="border-left-color:#2196f3" data-owner="596471082" data-signals="📞 Callback Requested" data-days="9">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/33153609825" target="_blank">Chando’s Cantina Zazon Del Mar (Sacramento, CA) - NONMJ</a></div>
+        <div class="deal-meta">
+          <span>👤 Alison Jeromchek</span>
+          <span>📋 4th Call Attempted</span>
+          <span>⏰ 9d since update</span>
+          <span>📝 77 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 75</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> Bar restaurant - has read email, so <mark>try again</mark>.</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="14">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/48476785289" target="_blank">Lisi’s Market (Pinehurst, NC) – NONmj</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 No Contact Made (Sent Email)</span>
+          <span>⏰ 14d since update</span>
+          <span>📝 19 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 75</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> Sent <mark>follow up</mark> email to Mickey...</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="24">
     <div class="deal-top">
       <div>
         <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/39908202004" target="_blank">Fishbone Seafood & Restaurant - Opening Soon! (Milwaukee, WI) - NONmj</a></div>
         <div class="deal-meta">
           <span>👤 Alison Jeromchek</span>
           <span>📋 Very Interested</span>
-          <span>⏰ 23d since update</span>
+          <span>⏰ 24d since update</span>
           <span>📝 33 activities</span>
         </div>
       </div>
@@ -2206,6 +2906,26 @@
     </div>
     <div class="snippets">
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> Fishbone Seafood & Restaurant - <mark>Opening Soon</mark>! (Milwaukee, WI) - NONmj</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#9c27b0" data-owner="63358838" data-signals="🏪 New Location/Opening" data-days="25">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/42448832301" target="_blank">Supermart #15 (Port Orchard, WA)</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Contact Made (Sent Email)</span>
+          <span>⏰ 25d since update</span>
+          <span>📝 15 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f8f0ff;color:#9c27b0">Score: 75</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f8f0ff;color:#9c27b0">🏪 New Location/Opening</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Note:</span> ...1/2025 Current Business Name: C &amp; T FOOD MART <mark>New Business</mark> Name: SUPER MART #19 Business Location: 406 W PIO...</div>
     </div>
   </div>
   <div class="deal-card stale" style="border-left-color:#9c27b0" data-owner="140424985" data-signals="🏪 New Location/Opening" data-days="31">
@@ -2288,6 +3008,26 @@
       <div class="snippet" style="border-left-color:#4caf50"><span class="src">Deal Name:</span> West Olympia Pharmacy (Cash <mark>Discount</mark>ing Deal)</div>
     </div>
   </div>
+  <div class="deal-card" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="18">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/40279349302" target="_blank">Izapa Stela 5 LLC (Winchendon, MA / MJ) ✔️#</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Postponed</span>
+          <span>⏰ 18d since update</span>
+          <span>📝 35 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 60</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...its so they can start their build out. Told me to <mark>follow up</mark> again in 3-4 months.</div>
+    </div>
+  </div>
   <div class="deal-card" style="border-left-color:#2196f3" data-owner="63358838" data-signals="📞 Callback Requested" data-days="20">
     <div class="deal-top">
       <div>
@@ -2308,46 +3048,6 @@
       <div class="snippet" style="border-left-color:#2196f3"><span class="src">Deal Name:</span> ...ree Sisters Medicinal Farm (Andover, NJ) - MJ ✔️# <mark>FOLLOW UP</mark> 2025</div>
     </div>
   </div>
-  <div class="deal-card" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="22">
-    <div class="deal-top">
-      <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/12710039371" target="_blank">Natural Wonder Cannabis (Babylon, NY / MJ) ✔️# </a></div>
-        <div class="deal-meta">
-          <span>👤 Jessicalynne Leonard</span>
-          <span>📋 Postponed</span>
-          <span>⏰ 22d since update</span>
-          <span>📝 64 activities</span>
-        </div>
-      </div>
-      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 60</div>
-    </div>
-    <div class="hit-tags">
-      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
-    </div>
-    <div class="snippets">
-      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...wn licensing requirements etc. I asked if I could <mark>call back</mark> in a few months and maybe he could fwd my info al...</div>
-    </div>
-  </div>
-  <div class="deal-card" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="25">
-    <div class="deal-top">
-      <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/22901642379" target="_blank">MinneStona Cannabis (St. Cloud, MN / MJ)</a></div>
-        <div class="deal-meta">
-          <span>👤 Jessicalynne Leonard</span>
-          <span>📋 Very Interested (You Got This!)</span>
-          <span>⏰ 25d since update</span>
-          <span>📝 12 activities</span>
-        </div>
-      </div>
-      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 60</div>
-    </div>
-    <div class="hit-tags">
-      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
-    </div>
-    <div class="snippets">
-      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> ...onths before they're ready for an atm. Told me to <mark>follow up</mark> in a few months. I told him sure thing and if his...</div>
-    </div>
-  </div>
   <div class="deal-card stale" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="34">
     <div class="deal-top">
       <div>
@@ -2366,6 +3066,46 @@
     </div>
     <div class="snippets">
       <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> Sent <mark>follow up</mark> email.</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#2196f3" data-owner="63358838" data-signals="📞 Callback Requested" data-days="18">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/21136010581" target="_blank">RALPHS TAVERN (Kettle Falls, WA / MJ) - Assumption</a></div>
+        <div class="deal-meta">
+          <span>👤 Lily Benedict</span>
+          <span>📋 Very Interested - +6Months</span>
+          <span>⏰ 18d since update</span>
+          <span>📝 22 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 60</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Note:</span> cant leave a message said to <mark>call back</mark>, sent email</div>
+    </div>
+  </div>
+  <div class="deal-card" style="border-left-color:#2196f3" data-owner="140424985" data-signals="📞 Callback Requested" data-days="25">
+    <div class="deal-top">
+      <div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/253070207695" target="_blank">Lobster Dogs - NONmj ✔️#</a></div>
+        <div class="deal-meta">
+          <span>👤 Jessicalynne Leonard</span>
+          <span>📋 Very Interested: +3 Months </span>
+          <span>⏰ 25d since update</span>
+          <span>📝 10 activities</span>
+        </div>
+      </div>
+      <div class="deal-score" style="background:#f0f7ff;color:#2196f3">Score: 60</div>
+    </div>
+    <div class="hit-tags">
+      <span class="hit-tag" style="background:#f0f7ff;color:#2196f3">📞 Callback Requested</span>
+    </div>
+    <div class="snippets">
+      <div class="snippet" style="border-left-color:#2196f3"><span class="src">Call Log:</span> ...t but possibly in the future. Said if I wanted to <mark>follow up</mark> with him in 3 months or so we can take things fro...</div>
     </div>
   </div>
   <div class="deal-card stale" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="61">
@@ -2948,14 +3688,14 @@
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> MIRAGE MEDICINAL (San Francisco, CA / MJ) - <mark>Under Construction</mark> as of 11/2022</div>
     </div>
   </div>
-  <div class="deal-card stale" style="border-left-color:#9c27b0" data-owner="80312936" data-signals="🏪 New Location/Opening" data-days="142">
+  <div class="deal-card stale" style="border-left-color:#9c27b0" data-owner="80312936" data-signals="🏪 New Location/Opening" data-days="143">
     <div class="deal-top">
       <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/34005707679" target="_blank">Phenos (Buffalo, NY / MJ) - Opening Soon! ✔️# </a><span class="stale-badge">STALE 142d</span></div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/34005707679" target="_blank">Phenos (Buffalo, NY / MJ) - Opening Soon! ✔️# </a><span class="stale-badge">STALE 143d</span></div>
         <div class="deal-meta">
           <span>👤 Unknown</span>
           <span>📋 Left VM / Sent Email</span>
-          <span>⏰ 142d since update</span>
+          <span>⏰ 143d since update</span>
           <span>📝 47 activities</span>
         </div>
       </div>
@@ -3428,14 +4168,14 @@
       <div class="snippet" style="border-left-color:#9c27b0"><span class="src">Deal Name:</span> Mahlys Deli LLC (Milwaukee, WI) - <mark>Opening Soon</mark></div>
     </div>
   </div>
-  <div class="deal-card stale" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="65">
+  <div class="deal-card stale" style="border-left-color:#9c27b0" data-owner="596471082" data-signals="🏪 New Location/Opening" data-days="66">
     <div class="deal-top">
       <div>
-        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/41348600140" target="_blank">Wild Rooster – Opening Soon! (Fort Lauderdale, FL) - NONmj</a><span class="stale-badge">STALE 65d</span></div>
+        <div class="deal-name"><a href="https://app-na2.hubspot.com/contacts/8287576/deal/41348600140" target="_blank">Wild Rooster – Opening Soon! (Fort Lauderdale, FL) - NONmj</a><span class="stale-badge">STALE 66d</span></div>
         <div class="deal-meta">
           <span>👤 Alison Jeromchek</span>
           <span>📋 2nd Call Attempted</span>
-          <span>⏰ 65d since update</span>
+          <span>⏰ 66d since update</span>
           <span>📝 16 activities</span>
         </div>
       </div>
@@ -3892,7 +4632,7 @@ function applyFilters() {
 </script>
 
 <div class="footer">
-  Last scanned: 2026-02-19 04:37:16 UTC<br>
+  Last scanned: 2026-02-19 05:37:57 UTC<br>
   Scanned 6867 open deals across 2 pipelines | 90-day lookback on notes &amp; calls<br>
   Keywords: 143 patterns across 6 signal categories
 </div>
