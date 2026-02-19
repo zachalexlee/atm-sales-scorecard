@@ -22,7 +22,7 @@
     text-align: center;
     padding: 50px 20px 40px;
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
     margin-bottom: 30px;
     position: relative;
     overflow: hidden;
@@ -163,6 +163,10 @@
   .q-card .q-wins { font-weight: 800; color: #ffd700; }
 
   /* ---- FOOTER ---- */
+  .nav { display: flex; gap: 12px; justify-content: center; padding: 12px; background: #141428; margin-bottom: 0; border-radius: 12px 12px 0 0; border: 1px solid rgba(255,255,255,0.06); border-bottom: none; }
+  .nav a { color: #ccc; text-decoration: none; font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 8px; transition: background 0.2s; }
+  .nav a:hover { background: rgba(255,255,255,0.08); color: #fff; }
+  .nav a.active { background: rgba(255,215,0,0.15); color: #ffd700; }
   .footer { text-align: center; padding: 30px; color: #444; font-size: 12px; }
 
   @media (max-width: 700px) {
@@ -175,6 +179,11 @@
 </head>
 <body>
 <div class="page">
+
+<div class="nav">
+  <a href="index.html">📊 Scorecard</a>
+  <a href="leaderboard.html" class="active">🏆 Leaderboard</a>
+</div>
 
 <div class="header">
   <h1><span class="trophy">🏆</span>Sales Leaderboard</h1>
@@ -393,7 +402,7 @@
 </div>
 
 <div class="footer">
-  Last updated: 2026-02-19 01:05:09 UTC<br>
+  Last updated: 2026-02-19 01:10:22 UTC<br>
   Data from HubSpot | Pipelines: Cannabis Cashier/Forza + Non-MJ 2026<br>
   Run <code style="background:#222;padding:2px 6px;border-radius:4px">node leaderboard.js</code> or double-click <code style="background:#222;padding:2px 6px;border-radius:4px">Run Scorecard.bat</code> to refresh
 </div>
