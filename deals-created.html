@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deals Created Report - ATM Sales Scorecard</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    line-height: 1.5; padding: 0;
+  }
+
+  /* Navigation */
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 2px;
+    background: #1e293b; padding: 8px 16px;
+    border-bottom: 1px solid #334155;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav a {
+    color: #94a3b8; text-decoration: none; padding: 6px 12px;
+    border-radius: 6px; font-size: 0.82rem; font-weight: 500;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .nav a:hover { background: #334155; color: #e2e8f0; }
+  .nav a.active { background: #3b82f6; color: #fff; }
+
+  /* Container */
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px 20px; }
+
+  /* Header */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+  }
+  .header h1 { font-size: 1.6rem; font-weight: 700; }
+  .header h1 span { color: #3b82f6; }
+  .header .subtitle { color: #64748b; font-size: 0.85rem; margin-top: 4px; }
+  .timestamp { color: #64748b; font-size: 0.78rem; text-align: right; }
+
+  /* Summary Cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .card {
+    background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+    padding: 20px; position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .card.green::before { background: #22c55e; }
+  .card.blue::before { background: #3b82f6; }
+  .card.purple::before { background: #a855f7; }
+  .card.amber::before { background: #f59e0b; }
+  .card-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .card-value { font-size: 2rem; font-weight: 700; }
+  .card-value.green { color: #22c55e; }
+  .card-value.blue { color: #3b82f6; }
+  .card-value.purple { color: #a855f7; }
+  .card-value.amber { color: #f59e0b; }
+  .card-sub { font-size: 0.8rem; color: #94a3b8; margin-top: 4px; }
+
+  /* Sections */
+  .section {
+    background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+    padding: 20px; margin-bottom: 24px;
+  }
+  .section-title {
+    font-size: 1rem; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .icon { font-size: 1.1rem; }
+
+  /* Tables */
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead th {
+    background: #0f172a; color: #94a3b8;
+    padding: 10px 12px; text-align: left;
+    font-weight: 600; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    position: sticky; top: 0;
+    border-bottom: 2px solid #334155;
+  }
+  tbody td {
+    padding: 9px 12px; border-bottom: 1px solid #1e293b;
+  }
+  tbody tr { transition: background 0.12s; }
+  tbody tr:hover { background: #334155; }
+  tbody tr:nth-child(even) { background: rgba(51, 65, 85, 0.2); }
+  tbody tr:nth-child(even):hover { background: #334155; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Bar charts in tables */
+  .bar-cell { width: 200px; }
+  .bar-bg { background: #0f172a; border-radius: 4px; height: 18px; overflow: hidden; }
+  .bar-fill {
+    height: 100%; background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 4px; transition: width 0.3s;
+    min-width: 2px;
+  }
+  .bar-fill-daily {
+    height: 100%; border-radius: 4px; transition: width 0.3s;
+    min-width: 2px;
+  }
+
+  /* Rep name */
+  .rep-name { font-weight: 600; color: #e2e8f0; white-space: nowrap; }
+  .rep-breakdown { font-size: 0.78rem; color: #94a3b8; }
+
+  /* Date cell */
+  .date-cell { white-space: nowrap; color: #94a3b8; }
+
+  /* Weekend row */
+  .weekend-row { opacity: 0.65; }
+  .weekend-row td:first-child { color: #64748b; font-style: italic; }
+
+  /* Deal link */
+  .deal-link { color: #60a5fa; text-decoration: none; }
+  .deal-link:hover { text-decoration: underline; color: #93c5fd; }
+
+  /* Pipeline badges */
+  .pipeline-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 0.72rem; font-weight: 600;
+  }
+  .pipeline-badge.cannabis { background: rgba(34,197,94,0.15); color: #22c55e; }
+  .pipeline-badge.nonmj { background: rgba(59,130,246,0.15); color: #60a5fa; }
+
+  /* Pipeline breakdown */
+  .pipeline-bars { display: flex; flex-direction: column; gap: 12px; }
+  .pipeline-row { display: flex; align-items: center; gap: 12px; }
+  .pipeline-label { width: 140px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
+  .pipeline-label.cannabis-label { color: #22c55e; }
+  .pipeline-label.nonmj-label { color: #60a5fa; }
+  .pipeline-bar-outer {
+    flex: 1; background: #0f172a; border-radius: 6px; height: 28px;
+    overflow: hidden; position: relative;
+  }
+  .pipeline-bar-inner {
+    height: 100%; border-radius: 6px; display: flex; align-items: center;
+    padding: 0 10px; font-size: 0.78rem; font-weight: 700; color: #fff;
+    transition: width 0.5s;
+  }
+  .pipeline-bar-inner.cannabis-bar { background: linear-gradient(90deg, #16a34a, #22c55e); }
+  .pipeline-bar-inner.nonmj-bar { background: linear-gradient(90deg, #2563eb, #3b82f6); }
+  .pipeline-count { font-size: 0.85rem; font-weight: 700; width: 80px; text-align: right; }
+
+  /* Trends */
+  .trend-up { color: #22c55e; font-size: 0.8rem; }
+  .trend-down { color: #ef4444; font-size: 0.8rem; }
+  .trend-flat { color: #94a3b8; font-size: 0.7rem; }
+  .badge-current {
+    background: #3b82f6; color: #fff; padding: 1px 6px; border-radius: 4px;
+    font-size: 0.68rem; font-weight: 700; vertical-align: middle;
+  }
+  .current-week { background: rgba(59,130,246,0.08); }
+
+  /* Filters */
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+    margin-bottom: 16px;
+  }
+  .filter-group { display: flex; flex-direction: column; gap: 4px; }
+  .filter-group label {
+    font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .filter-group select, .filter-group input[type="text"] {
+    background: #0f172a; color: #e2e8f0;
+    border: 1px solid #334155; border-radius: 6px;
+    padding: 7px 12px; font-size: 0.85rem; min-width: 160px;
+  }
+  .filter-group select:focus, .filter-group input[type="text"]:focus {
+    outline: none; border-color: #3b82f6;
+  }
+  .result-count { color: #64748b; font-size: 0.8rem; padding: 8px 0; }
+
+  /* Two-column layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; }
+    .cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .cards { grid-template-columns: 1fr; }
+    .bar-cell { width: 100px; }
+    .pipeline-label { width: 100px; font-size: 0.78rem; }
+  }
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="index.html">&#128202; Scorecard</a>
+  <a href="leaderboard.html">&#127942; Leaderboard</a>
+  <a href="hot-leads.html">&#128293; Hot Leads</a>
+  <a href="activity-outcomes.html">&#128200; Activity Correlation</a>
+  <a href="email-call-metrics.html">&#128231; Email/Call Metrics</a>
+  <a href="dead-deals.html">&#128128; Dead Deals</a>
+  <a href="truly-alive.html">&#128154; Truly Alive</a>
+  <a href="deals-created.html" class="active">&#10133; Deals Created</a>
+</div>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1>&#10133; <span>Deals Created</span> Report</h1>
+      <div class="subtitle">New deals added in the last 30 days across Cannabis Cashier and Non-MJ pipelines</div>
+    </div>
+    <div class="timestamp">
+      Generated: Feb 19, 2026, 5:54 PM<br>
+      <span style="color:#22c55e; font-size: 0.85rem; font-weight: 600;">
+        Weekly trend: &#9650; Up
+      </span>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="cards">
+    <div class="card green">
+      <div class="card-label">Total Deals Created</div>
+      <div class="card-value green">70</div>
+      <div class="card-sub">Last 30 days</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">Daily Average</div>
+      <div class="card-value blue">2.3</div>
+      <div class="card-sub">Deals per day</div>
+    </div>
+    <div class="card purple">
+      <div class="card-label">Top Creator</div>
+      <div class="card-value purple" style="font-size:1.3rem">Jessicalynne Leonard</div>
+      <div class="card-sub">30 deals created</div>
+    </div>
+    <div class="card amber">
+      <div class="card-label">Pipeline Split</div>
+      <div class="card-value amber" style="font-size:1.1rem">24 / 46</div>
+      <div class="card-sub">Cannabis Cashier / Non-MJ</div>
+    </div>
+  </div>
+
+  <!-- Deals by Rep -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#128101;</span> Deals Created by Rep</div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Rep</th>
+            <th style="text-align:right">Total</th>
+            <th style="text-align:right">Cannabis Cashier</th>
+            <th style="text-align:right">Non-MJ</th>
+            <th style="text-align:right">Daily Avg</th>
+            <th>Volume</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+      <td class="rep-name">Jessicalynne Leonard</td>
+      <td class="num">30</td>
+      <td class="num">9</td>
+      <td class="num">21</td>
+      <td class="num">1.0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill" style="width:100%"></div>
+        </div>
+      </td>
+    </tr>
+<tr>
+      <td class="rep-name">Lily Benedict</td>
+      <td class="num">19</td>
+      <td class="num">5</td>
+      <td class="num">14</td>
+      <td class="num">0.6</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill" style="width:63%"></div>
+        </div>
+      </td>
+    </tr>
+<tr>
+      <td class="rep-name">Alison Jeromchek</td>
+      <td class="num">18</td>
+      <td class="num">8</td>
+      <td class="num">10</td>
+      <td class="num">0.6</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill" style="width:60%"></div>
+        </div>
+      </td>
+    </tr>
+<tr>
+      <td class="rep-name">Josh Johnson</td>
+      <td class="num">1</td>
+      <td class="num">1</td>
+      <td class="num">0</td>
+      <td class="num">0.0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill" style="width:3%"></div>
+        </div>
+      </td>
+    </tr>
+<tr>
+      <td class="rep-name">AJ Stine</td>
+      <td class="num">1</td>
+      <td class="num">0</td>
+      <td class="num">1</td>
+      <td class="num">0.0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill" style="width:3%"></div>
+        </div>
+      </td>
+    </tr>
+<tr>
+      <td class="rep-name">Michelle Stine</td>
+      <td class="num">1</td>
+      <td class="num">1</td>
+      <td class="num">0</td>
+      <td class="num">0.0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill" style="width:3%"></div>
+        </div>
+      </td>
+    </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Two-column: Daily Trend + Weekly Summary -->
+  <div class="two-col">
+    <!-- Daily Trend -->
+    <div class="section">
+      <div class="section-title"><span class="icon">&#128197;</span> Daily Trend (Last 30 Days)</div>
+      <div class="table-scroll" style="max-height:520px; overflow-y:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Date</th>
+              <th style="text-align:right">Count</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="">
+      <td class="date-cell">Wed</td>
+      <td class="date-cell">Jan 21</td>
+      <td class="num">2</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:18%;background:hsl(22, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Thu</td>
+      <td class="date-cell">Jan 22</td>
+      <td class="num">1</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:9%;background:hsl(11, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Fri</td>
+      <td class="date-cell">Jan 23</td>
+      <td class="num">5</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:45%;background:hsl(55, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="weekend-row">
+      <td class="date-cell">Sat</td>
+      <td class="date-cell">Jan 24</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="weekend-row">
+      <td class="date-cell">Sun</td>
+      <td class="date-cell">Jan 25</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Mon</td>
+      <td class="date-cell">Jan 26</td>
+      <td class="num">3</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:27%;background:hsl(33, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Tue</td>
+      <td class="date-cell">Jan 27</td>
+      <td class="num">4</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:36%;background:hsl(44, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Wed</td>
+      <td class="date-cell">Jan 28</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Thu</td>
+      <td class="date-cell">Jan 29</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Fri</td>
+      <td class="date-cell">Jan 30</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="weekend-row">
+      <td class="date-cell">Sat</td>
+      <td class="date-cell">Jan 31</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="weekend-row">
+      <td class="date-cell">Sun</td>
+      <td class="date-cell">Feb 1</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Mon</td>
+      <td class="date-cell">Feb 2</td>
+      <td class="num">2</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:18%;background:hsl(22, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Tue</td>
+      <td class="date-cell">Feb 3</td>
+      <td class="num">1</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:9%;background:hsl(11, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Wed</td>
+      <td class="date-cell">Feb 4</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Thu</td>
+      <td class="date-cell">Feb 5</td>
+      <td class="num">2</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:18%;background:hsl(22, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Fri</td>
+      <td class="date-cell">Feb 6</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="weekend-row">
+      <td class="date-cell">Sat</td>
+      <td class="date-cell">Feb 7</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="weekend-row">
+      <td class="date-cell">Sun</td>
+      <td class="date-cell">Feb 8</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Mon</td>
+      <td class="date-cell">Feb 9</td>
+      <td class="num">9</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:82%;background:hsl(98, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Tue</td>
+      <td class="date-cell">Feb 10</td>
+      <td class="num">7</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:64%;background:hsl(76, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Wed</td>
+      <td class="date-cell">Feb 11</td>
+      <td class="num">5</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:45%;background:hsl(55, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Thu</td>
+      <td class="date-cell">Feb 12</td>
+      <td class="num">1</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:9%;background:hsl(11, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Fri</td>
+      <td class="date-cell">Feb 13</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="weekend-row">
+      <td class="date-cell">Sat</td>
+      <td class="date-cell">Feb 14</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="weekend-row">
+      <td class="date-cell">Sun</td>
+      <td class="date-cell">Feb 15</td>
+      <td class="num">1</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:9%;background:hsl(11, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Mon</td>
+      <td class="date-cell">Feb 16</td>
+      <td class="num">0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:0%;background:#334155"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Tue</td>
+      <td class="date-cell">Feb 17</td>
+      <td class="num">8</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:73%;background:hsl(87, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Wed</td>
+      <td class="date-cell">Feb 18</td>
+      <td class="num">7</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:64%;background:hsl(76, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+<tr class="">
+      <td class="date-cell">Thu</td>
+      <td class="date-cell">Feb 19</td>
+      <td class="num">11</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill-daily" style="width:100%;background:hsl(120, 70%, 50%)"></div>
+        </div>
+      </td>
+    </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Weekly Summary + Pipeline Breakdown -->
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <div class="section">
+        <div class="section-title"><span class="icon">&#128200;</span> Weekly Summary</div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th style="text-align:right">Total</th>
+                <th>By Rep</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="">
+      <td>Jan 19 - Jan 25</td>
+      <td class="num">8 </td>
+      <td class="rep-breakdown">Lily Benedict: 3, Alison Jeromchek: 3, Jessicalynne Leonard: 2</td>
+    </tr>
+<tr class="">
+      <td>Jan 26 - Feb 1</td>
+      <td class="num">7 <span class="trend-down">&#9660;</span></td>
+      <td class="rep-breakdown">Jessicalynne Leonard: 4, Lily Benedict: 1, Alison Jeromchek: 1, Michelle Stine: 1</td>
+    </tr>
+<tr class="">
+      <td>Feb 2 - Feb 8</td>
+      <td class="num">5 <span class="trend-down">&#9660;</span></td>
+      <td class="rep-breakdown">Alison Jeromchek: 3, Jessicalynne Leonard: 2</td>
+    </tr>
+<tr class="">
+      <td>Feb 9 - Feb 15</td>
+      <td class="num">23 <span class="trend-up">&#9650;</span></td>
+      <td class="rep-breakdown">Alison Jeromchek: 10, Lily Benedict: 6, Jessicalynne Leonard: 5, Josh Johnson: 1, AJ Stine: 1</td>
+    </tr>
+<tr class="current-week">
+      <td>Feb 16 - Feb 19 <span class="badge-current">Current</span></td>
+      <td class="num">26 <span class="trend-up">&#9650;</span></td>
+      <td class="rep-breakdown">Jessicalynne Leonard: 17, Lily Benedict: 9</td>
+    </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title"><span class="icon">&#128202;</span> Pipeline Breakdown</div>
+        <div class="pipeline-bars">
+          <div class="pipeline-row">
+            <div class="pipeline-label cannabis-label">Cannabis Cashier</div>
+            <div class="pipeline-bar-outer">
+              <div class="pipeline-bar-inner cannabis-bar" style="width:34%">
+                34%
+              </div>
+            </div>
+            <div class="pipeline-count" style="color:#22c55e">24</div>
+          </div>
+          <div class="pipeline-row">
+            <div class="pipeline-label nonmj-label">Non-MJ</div>
+            <div class="pipeline-bar-outer">
+              <div class="pipeline-bar-inner nonmj-bar" style="width:66%">
+                66%
+              </div>
+            </div>
+            <div class="pipeline-count" style="color:#60a5fa">46</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Deals Table -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#128203;</span> All Deals Created (Last 30 Days)</div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-group">
+        <label>Rep</label>
+        <select id="filterRep" onchange="applyFilters()">
+          <option value="">All Reps</option>
+          <option value="AJ Stine">AJ Stine</option><option value="Alison Jeromchek">Alison Jeromchek</option><option value="Jessicalynne Leonard">Jessicalynne Leonard</option><option value="Josh Johnson">Josh Johnson</option><option value="Lily Benedict">Lily Benedict</option><option value="Michelle Stine">Michelle Stine</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Pipeline</label>
+        <select id="filterPipeline" onchange="applyFilters()">
+          <option value="">All Pipelines</option>
+          <option value="Cannabis Cashier">Cannabis Cashier</option><option value="Non-MJ">Non-MJ</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Search</label>
+        <input type="text" id="filterSearch" placeholder="Search deal name..." oninput="applyFilters()">
+      </div>
+    </div>
+    <div class="result-count" id="resultCount"></div>
+
+    <div class="table-scroll">
+      <table id="dealsTable">
+        <thead>
+          <tr>
+            <th style="cursor:pointer" onclick="sortTable(0)">Deal Name &#8597;</th>
+            <th style="cursor:pointer" onclick="sortTable(1)">Rep &#8597;</th>
+            <th style="cursor:pointer" onclick="sortTable(2)">Pipeline &#8597;</th>
+            <th style="cursor:pointer" onclick="sortTable(3)">Stage &#8597;</th>
+            <th style="cursor:pointer" onclick="sortTable(4)">Created &#8597;</th>
+          </tr>
+        </thead>
+        <tbody id="dealsBody">
+          <tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="alison's forza deals (active)">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/34895635307" target="_blank" class="deal-link">Alison's Forza Deals (Active)</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Apr 21, 2027</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="natural nail nook (tyler, tx) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/301906553545" target="_blank" class="deal-link">Natural Nail Nook (Tyler, TX) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="gateway nails &amp; spa (citrus heights, ca) – nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300331099841" target="_blank" class="deal-link">Gateway Nails &amp; Spa (Citrus Heights, CA) – NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="vivian nail bar (killeen, tx) – nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/301580977896" target="_blank" class="deal-link">Vivian Nail Bar (Killeen, TX) – NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="elite nail lounge (gainesville, va) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/301341106905" target="_blank" class="deal-link">Elite Nail Lounge (Gainesville, VA) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="the suite spot &amp; nail bar (crystal river, fl) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/301580971763" target="_blank" class="deal-link">The Suite Spot &amp; Nail Bar (Crystal River, FL) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="amour nail lounge (clinton township, mi) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/299752621797" target="_blank" class="deal-link">Amour Nail Lounge (Clinton Township, MI) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="honey nail bar (kissimmee, fl) – nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/299752621755" target="_blank" class="deal-link">Honey Nail Bar (Kissimmee, FL) – NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="s &amp; h buds inc. (craryville, ny) - mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/299752619736" target="_blank" class="deal-link">S &amp; H Buds Inc. (Craryville, NY) - MJ</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="highway 6 express (oxford, ms) – nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/301906526951" target="_blank" class="deal-link">Highway 6 Express (Oxford, MS) – NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="balam cafã (ferndale, mi) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/299752608477" target="_blank" class="deal-link">Balam CafÃ (Ferndale, MI) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="delos greek restaurant (new york, ny) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300329641703" target="_blank" class="deal-link">Delos Greek Restaurant (New York, NY) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 19, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="prime time cannabis llc (brooklyn, ny) - mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300329579212" target="_blank" class="deal-link">Prime Time Cannabis LLC (Brooklyn, NY) - MJ</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Lead In</td>
+      <td>Feb 18, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Cannabis Cashier" data-name="on the move contracting services, llc (savannah, ny) - mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/301256450771" target="_blank" class="deal-link">On The Move Contracting Services, LLC (Savannah, NY) - MJ</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Very Interested (You Got This!)</td>
+      <td>Feb 18, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Cannabis Cashier" data-name="luminare llc (astoria, ny) - mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/299409971937" target="_blank" class="deal-link">Luminare LLC (Astoria, NY) - MJ</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Left VM / Sent Email</td>
+      <td>Feb 18, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="astrid holdings llc (buffalo, ny) – mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/301256417980" target="_blank" class="deal-link">Astrid Holdings LLC (Buffalo, NY) – MJ</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Lead In</td>
+      <td>Feb 18, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Cannabis Cashier" data-name="dispensary – d/b/a tbd (buffalo, ny) - mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300329543362" target="_blank" class="deal-link">Dispensary – d/b/a TBD (Buffalo, NY) - MJ</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Closed Lost</td>
+      <td>Feb 18, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Cannabis Cashier" data-name="a2b luxury llc (kingston, ny) - mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300329535180" target="_blank" class="deal-link">A2B Luxury LLC (Kingston, NY) - MJ</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Closed Lost</td>
+      <td>Feb 18, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="ab cann llc (west babylon, ny) – mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/299409930942" target="_blank" class="deal-link">AB CANN LLC (West Babylon, NY) – MJ</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Lead In</td>
+      <td>Feb 18, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="braketime corner market – multiple locations (houston, tx) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300330908350" target="_blank" class="deal-link">BrakeTime Corner Market – Multiple Locations (Houston, TX) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 17, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="“palm petrol” d/b/a tbd (palm beach, fl) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300444968688" target="_blank" class="deal-link">“Palm Petrol” d/b/a TBD (Palm Beach, FL) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 17, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="“hometown gas station” d/b/a tbd (grafton, wi) - nonmj ✔️# ">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300330902216" target="_blank" class="deal-link">“Hometown Gas Station” d/b/a TBD (Grafton, WI) - NONmj ✔️# </a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 17, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="colbea enterprises llc – gas station/c-store (portsmouth, nh) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300330879721" target="_blank" class="deal-link">Colbea Enterprises LLC – Gas Station/C-Store (Portsmouth, NH) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 17, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="maggie's – g station/c-store (los angeles, ca) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/299752411887" target="_blank" class="deal-link">Maggie's – G Station/C-Store (Los Angeles, CA) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 17, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="northgate 42, llc – gas station/c-store (los banos, ca) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300012504776" target="_blank" class="deal-link">Northgate 42, LLC – gas station/c-store (Los Banos, CA) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 17, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="gas station @ highway 242 (conroe, tx) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/300024096472" target="_blank" class="deal-link">Gas Station @ Highway 242 (Conroe, TX) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Closed Lost</td>
+      <td>Feb 17, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="494 express mart (new caney, tx) - nonmj ✔️#">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/299406233328" target="_blank" class="deal-link">494 Express Mart (New Caney, TX) - NONmj ✔️#</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>No Contact Made (Sent Email)</td>
+      <td>Feb 17, 2026</td>
+    </tr>
+<tr data-rep="Josh Johnson" data-pipeline="Cannabis Cashier" data-name="test">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/297117574854" target="_blank" class="deal-link">test</a></td>
+      <td>Josh Johnson</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Lead In</td>
+      <td>Feb 15, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Cannabis Cashier" data-name="house of cannabis - new deal">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/294988950227" target="_blank" class="deal-link">House of Cannabis - New Deal</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Left VM / Sent Email</td>
+      <td>Feb 12, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="village gas (north smithfield, ri) - nonmj  call april 2026">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/294218579702" target="_blank" class="deal-link">Village Gas (North Smithfield, RI) - NONmj  CALL APRIL 2026</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Contact Made (Sent Email)</td>
+      <td>Feb 11, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="k brothers llc (meriden, ct) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/294210681542" target="_blank" class="deal-link">K Brothers LLC (Meriden, CT) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>2nd Call Attempted</td>
+      <td>Feb 11, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="gas station, market, restaurant (st. joseph, mi) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/294210677482" target="_blank" class="deal-link">Gas Station, Market, Restaurant (St. Joseph, MI) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>No Contact Made (Sent Email)</td>
+      <td>Feb 11, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="on the bun (lowell, ma) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/294210664183" target="_blank" class="deal-link">On the Bun (Lowell, MA) - NONmj</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 11, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="populus lowell llc d/b/a populus (lowell, ma) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/294304223953" target="_blank" class="deal-link">Populus Lowell LLC d/b/a Populus (Lowell, MA) - NONmj</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 11, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Cannabis Cashier" data-name="hvk management, llc d/b/a budega queens club (richmond hill, ny) – mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/293206179571" target="_blank" class="deal-link">HVK Management, LLC d/b/a Budega Queens Club (Richmond Hill, NY) – MJ</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Lead In</td>
+      <td>Feb 10, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Cannabis Cashier" data-name="exotic farms dispensary (brockport, ny) – mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/267595512538" target="_blank" class="deal-link">Exotic Farms Dispensary (Brockport, NY) – MJ</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Answered/ Sent Email</td>
+      <td>Feb 10, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="quick mart liquor (anaheim, ca) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/220654908153" target="_blank" class="deal-link">QUICK MART LIQUOR (Anaheim, CA) - NONmj</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 10, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Cannabis Cashier" data-name="flower bnk cannabis dispensary (schenectady, ny) -mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/293205457610" target="_blank" class="deal-link">Flower BNK Cannabis Dispensary (Schenectady, NY) -MJ</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Answered/ Sent Email</td>
+      <td>Feb 10, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="us market/space age (albany, or) – nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292835911397" target="_blank" class="deal-link">US Market/Space Age (Albany, OR) – NONmj</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 10, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="tony's quick shop (southeast topeka, ks) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/291573525216" target="_blank" class="deal-link">Tony's Quick Shop (Southeast Topeka, KS) - NONmj</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Feb 10, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="rer gas station &amp; convenience store (perham, mn) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292430117587" target="_blank" class="deal-link">RER Gas Station &amp; Convenience Store (Perham, MN) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>No Contact Made (Sent Email)</td>
+      <td>Feb 10, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="market station (oconee county, ga) - nonmj ✔️#">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292471267062" target="_blank" class="deal-link">Market Station (Oconee County, GA) - NONmj ✔️#</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>2nd Call Attempted</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="gas station (hartland township, mi) - nonmj ✔️#">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292428315335" target="_blank" class="deal-link">Gas Station (Hartland Township, MI) - NONmj ✔️#</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Closed Lost</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="yosemite travel center - gas station - opening soon! (madera county, ca) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292426155709" target="_blank" class="deal-link">Yosemite Travel Center - Gas Station - Opening Soon! (Madera County, CA) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>No Contact Made (Sent Email)</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="am pm convenience stores, inc. (bulloch county, ga) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292425434816" target="_blank" class="deal-link">AM PM Convenience Stores, Inc. (Bulloch County, GA) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Closed Lost</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="belmont blvd, llc – gas station (west richland, wa) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292394257143" target="_blank" class="deal-link">Belmont Blvd, LLC – Gas Station (West Richland, WA) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>2nd Call Attempted</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="gas station (burton, mi) – nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/292237753055" target="_blank" class="deal-link">Gas Station (Burton, MI) – NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Contact Made (Sent Email)</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Cannabis Cashier" data-name="dutchmen of central llc (farmingdale, ny) - mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/44451563865" target="_blank" class="deal-link">Dutchmen Of Central LLC (Farmingdale, NY) - MJ</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Left VM / Sent Email</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Cannabis Cashier" data-name="five borough farms, llc (brooklyn, ny) - mj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/29076872218" target="_blank" class="deal-link">Five Borough Farms, LLC (Brooklyn, NY) - MJ</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Left VM / Sent Email</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="AJ Stine" data-pipeline="Non-MJ" data-name="test deal for automation">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/291573445344" target="_blank" class="deal-link">Test deal for automation</a></td>
+      <td>AJ Stine</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Closed Won</td>
+      <td>Feb 9, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="angkor bar &amp; grill llc (burien, wa)">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/287896145605" target="_blank" class="deal-link">ANGKOR BAR &amp; GRILL LLC (Burien, WA)</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Contact Made (Sent Email)</td>
+      <td>Feb 5, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="pit stop mart &amp; smoke stop (aberdeen, wa)">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/287746653896" target="_blank" class="deal-link">PIT STOP MART &amp; SMOKE STOP (Aberdeen, WA)</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Contact Made (Sent Email)</td>
+      <td>Feb 5, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Cannabis Cashier" data-name="toastree, llc dba chyla's (?) (manhattan, ny / mj) ✔️#">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/28948743090" target="_blank" class="deal-link">TOASTREE, LLC DBA Chyla's (?) (Manhattan, NY / MJ) ✔️#</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Left VM / Sent Email</td>
+      <td>Feb 3, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="opc cultivation, llc">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/283603000008" target="_blank" class="deal-link">OPC Cultivation, LLC</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Left VM / Sent Email</td>
+      <td>Feb 2, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="tango ventures, llc d/b/a klutch cannabis (akron, oh)">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/282124031719" target="_blank" class="deal-link">Tango Ventures, LLC d/b/a Klutch Cannabis (Akron, OH)</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Left VM / Sent Email</td>
+      <td>Feb 2, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="lyfe cannabis dispensary (rockford, il / mj) ✔️#  ">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/14409574715" target="_blank" class="deal-link">Lyfe Cannabis Dispensary (Rockford, IL / MJ) ✔️#  </a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>2nd Call / No Answer - Sent Email</td>
+      <td>Jan 27, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="hōp - opening summer '26 (red hook, ny) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/275293810413" target="_blank" class="deal-link">Hōp - Opening Summer '26 (Red Hook, NY) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>No Contact Made (Sent Email)</td>
+      <td>Jan 27, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="bond brothers kitchen &amp; bar (morrisville, nc) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/275401026271" target="_blank" class="deal-link">Bond Brothers Kitchen &amp; Bar (Morrisville, NC) - NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Jan 27, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="warm beach grocery (stanwood, wa) – nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/275401022152" target="_blank" class="deal-link">Warm Beach Grocery (Stanwood, WA) – NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>2nd Call Attempted</td>
+      <td>Jan 27, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="hound town 543 (franklin township, nj / mj) ✔️#">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/40832606049" target="_blank" class="deal-link">Hound Town 543 (Franklin Township, NJ / MJ) ✔️#</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Left VM / Sent Email</td>
+      <td>Jan 26, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Cannabis Cashier" data-name="chessworth farms (watertown, ny / mj)">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/275196297975" target="_blank" class="deal-link">Chessworth Farms (Watertown, NY / MJ)</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>2nd Call / No Answer - Sent Email</td>
+      <td>Jan 26, 2026</td>
+    </tr>
+<tr data-rep="Michelle Stine" data-pipeline="Cannabis Cashier" data-name="the high end dba good life collective (batavia, ny, / mj) - winter 2025 ✔️#">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/28277399914" target="_blank" class="deal-link">The High End DBA Good Life Collective (Batavia, NY, / MJ) - Winter 2025 ✔️#</a></td>
+      <td>Michelle Stine</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Very Interested (You Got This!)</td>
+      <td>Jan 26, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="common space brewery (los angeles, ca) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/272715735778" target="_blank" class="deal-link">Common Space Brewery (Los Angeles, CA) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Closed Lost</td>
+      <td>Jan 23, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="packard tavern (charlotte, nc) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/273347246792" target="_blank" class="deal-link">Packard Tavern (Charlotte, NC) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>No Contact Made (Sent Email)</td>
+      <td>Jan 23, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="stevie's famous (seattle, wa) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/273338611432" target="_blank" class="deal-link">Stevie's Famous (Seattle, WA) - NONmj</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Contact Made (Sent Email)</td>
+      <td>Jan 23, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Non-MJ" data-name="dankhouse brewing co. - opening early 2026! (columbus, oh) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/272714273476" target="_blank" class="deal-link">DankHouse Brewing Co. - Opening Early 2026! (Columbus, OH) - NONmj</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Lead In</td>
+      <td>Jan 23, 2026</td>
+    </tr>
+<tr data-rep="Lily Benedict" data-pipeline="Non-MJ" data-name="flanker new york city and the hidden boot saloon (new york, ny) - nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/272741272295" target="_blank" class="deal-link">Flanker New York City and The Hidden Boot Saloon (New York, NY) - NONmj</a></td>
+      <td>Lily Benedict</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>Closed Lost</td>
+      <td>Jan 23, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Non-MJ" data-name="a plus massage (kileen, tx) – nonmj">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/267448889071" target="_blank" class="deal-link">A Plus Massage (Kileen, TX) – NONmj</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
+      <td>No Contact Made (Sent Email)</td>
+      <td>Jan 22, 2026</td>
+    </tr>
+<tr data-rep="Alison Jeromchek" data-pipeline="Cannabis Cashier" data-name="oklahoma station dispensary llc (park hill, ok / mj) - coming soon ✔️#">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/270339702476" target="_blank" class="deal-link">Oklahoma Station Dispensary LLC (Park Hill, OK / MJ) - Coming Soon ✔️#</a></td>
+      <td>Alison Jeromchek</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Closed Lost</td>
+      <td>Jan 21, 2026</td>
+    </tr>
+<tr data-rep="Jessicalynne Leonard" data-pipeline="Cannabis Cashier" data-name="dmv exclusives llc dba coastal cure cannabis dispensary (delmar, md / mj) ✔️# - opening soon spring 2026">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/18761654073" target="_blank" class="deal-link">DMV Exclusives LLC DBA Coastal Cure Cannabis Dispensary (Delmar, MD / MJ) ✔️# - OPENING SOON SPRING 2026</a></td>
+      <td>Jessicalynne Leonard</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Very Interested (You Got This!)</td>
+      <td>Jan 21, 2026</td>
+    </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Client-side filtering ──
+  function applyFilters() {
+    var rep = document.getElementById('filterRep').value;
+    var pipeline = document.getElementById('filterPipeline').value;
+    var search = document.getElementById('filterSearch').value.toLowerCase();
+    var rows = document.querySelectorAll('#dealsBody tr');
+    var shown = 0;
+    rows.forEach(function(row) {
+      var rRep = row.getAttribute('data-rep');
+      var rPipeline = row.getAttribute('data-pipeline');
+      var rName = row.getAttribute('data-name');
+      var show = true;
+      if (rep && rRep !== rep) show = false;
+      if (pipeline && rPipeline !== pipeline) show = false;
+      if (search && rName.indexOf(search) === -1) show = false;
+      row.style.display = show ? '' : 'none';
+      if (show) shown++;
+    });
+    document.getElementById('resultCount').textContent = 'Showing ' + shown + ' of 70 deals';
+  }
+
+  // ── Client-side sorting ──
+  var sortDir = [1, 1, 1, 1, -1]; // default: created desc
+  function sortTable(col) {
+    var table = document.getElementById('dealsTable');
+    var tbody = document.getElementById('dealsBody');
+    var rows = Array.from(tbody.querySelectorAll('tr'));
+    sortDir[col] = -sortDir[col];
+    rows.sort(function(a, b) {
+      var aVal = a.children[col].textContent.trim();
+      var bVal = b.children[col].textContent.trim();
+      // Try date parse for column 4
+      if (col === 4) {
+        var aDate = new Date(aVal);
+        var bDate = new Date(bVal);
+        if (!isNaN(aDate) && !isNaN(bDate)) {
+          return (aDate - bDate) * sortDir[col];
+        }
+      }
+      return aVal.localeCompare(bVal) * sortDir[col];
+    });
+    rows.forEach(function(row) { tbody.appendChild(row); });
+  }
+
+  // Initialize count
+  applyFilters();
+</script>
+</body>
+</html>
