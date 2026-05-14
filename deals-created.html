@@ -223,7 +223,7 @@
       <div class="subtitle">New deals added in the last 30 days across Cannabis Cashier and Non-MJ pipelines</div>
     </div>
     <div class="timestamp">
-      Generated: May 14, 2026, 12:29 PM<br>
+      Generated: May 14, 2026, 12:49 PM<br>
       <span style="color:#ef4444; font-size: 0.85rem; font-weight: 600;">
         Weekly trend: &#9660; Down
       </span>
@@ -240,12 +240,12 @@
   <div class="cards">
     <div class="card green">
       <div class="card-label">Total Deals Created</div>
-      <div class="card-value green">124</div>
+      <div class="card-value green">125</div>
       <div class="card-sub">Last 30 days</div>
     </div>
     <div class="card blue">
       <div class="card-label">Daily Average</div>
-      <div class="card-value blue">4.1</div>
+      <div class="card-value blue">4.2</div>
       <div class="card-sub">Deals per day</div>
     </div>
     <div class="card purple">
@@ -255,7 +255,7 @@
     </div>
     <div class="card amber">
       <div class="card-label">Pipeline Split</div>
-      <div class="card-value amber" style="font-size:1.1rem">22 / 102</div>
+      <div class="card-value amber" style="font-size:1.1rem">23 / 102</div>
       <div class="card-sub">Cannabis Cashier / Non-MJ</div>
     </div>
   </div>
@@ -309,6 +309,18 @@
       <td class="bar-cell">
         <div class="bar-bg">
           <div class="bar-fill" style="width:6%"></div>
+        </div>
+      </td>
+    </tr>
+<tr>
+      <td class="rep-name">Former Employee</td>
+      <td class="num">1</td>
+      <td class="num">1</td>
+      <td class="num">0</td>
+      <td class="num">0.0</td>
+      <td class="bar-cell">
+        <div class="bar-bg">
+          <div class="bar-fill" style="width:2%"></div>
         </div>
       </td>
     </tr>
@@ -626,10 +638,10 @@
 <tr class="">
       <td class="date-cell">Thu</td>
       <td class="date-cell">May 14</td>
-      <td class="num">1</td>
+      <td class="num">2</td>
       <td class="bar-cell">
         <div class="bar-bg">
-          <div class="bar-fill-daily" style="width:5%;background:hsl(6, 70%, 50%)"></div>
+          <div class="bar-fill-daily" style="width:10%;background:hsl(11, 70%, 50%)"></div>
         </div>
       </td>
     </tr>
@@ -674,8 +686,8 @@
     </tr>
 <tr class="current-week">
       <td>May 11 - May 14 <span class="badge-current">Current</span></td>
-      <td class="num">17 <span class="trend-down">&#9660;</span></td>
-      <td class="rep-breakdown">Jessicalynne Leonard: 16, Josh Johnson: 1</td>
+      <td class="num">18 <span class="trend-down">&#9660;</span></td>
+      <td class="rep-breakdown">Jessicalynne Leonard: 16, Former Employee: 1, Josh Johnson: 1</td>
     </tr>
             </tbody>
           </table>
@@ -692,7 +704,7 @@
                 18%
               </div>
             </div>
-            <div class="pipeline-count" style="color:#22c55e">22</div>
+            <div class="pipeline-count" style="color:#22c55e">23</div>
           </div>
           <div class="pipeline-row">
             <div class="pipeline-label nonmj-label">Non-MJ</div>
@@ -718,7 +730,7 @@
         <label>Creator</label>
         <select id="filterRep" onchange="applyFilters()">
           <option value="">All Creators</option>
-          <option value="Jessicalynne Leonard">Jessicalynne Leonard</option><option value="Josh Johnson">Josh Johnson</option><option value="Unknown">Unknown</option>
+          <option value="Former Employee">Former Employee</option><option value="Jessicalynne Leonard">Jessicalynne Leonard</option><option value="Josh Johnson">Josh Johnson</option><option value="Unknown">Unknown</option>
         </select>
       </div>
       <div class="filter-group">
@@ -760,6 +772,13 @@
       <td><span class="pipeline-badge nonmj">Non-MJ</span></td>
       <td>No Contact Made (Sent Email)</td>
       <td>May 21, 2026</td>
+    </tr>
+<tr data-rep="Former Employee" data-pipeline="Cannabis Cashier" data-name="rocchio realty inc. (brooklyn, ny / mj) ✔️#">
+      <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/23255259503" target="_blank" class="deal-link">Rocchio Realty Inc. (Brooklyn, NY / MJ) ✔️#</a></td>
+      <td>Former Employee</td>
+      <td><span class="pipeline-badge cannabis">Cannabis Cashier</span></td>
+      <td>Lead In</td>
+      <td>May 14, 2026</td>
     </tr>
 <tr data-rep="Josh Johnson" data-pipeline="Cannabis Cashier" data-name="la flōr (fairfax, ca / mj) ✔️# coming spring/summer 2026">
       <td><a href="https://app-na2.hubspot.com/contacts/8287576/deal/321687901883" target="_blank" class="deal-link">La Flōr (Fairfax, CA / MJ) ✔️# Coming Spring/Summer 2026</a></td>
@@ -1640,7 +1659,7 @@
       row.style.display = show ? '' : 'none';
       if (show) shown++;
     });
-    document.getElementById('resultCount').textContent = 'Showing ' + shown + ' of 124 deals';
+    document.getElementById('resultCount').textContent = 'Showing ' + shown + ' of 125 deals';
   }
 
   // ── Client-side sorting ──
